@@ -2,13 +2,12 @@ using System.Linq;
 using UnityEditor;
 using UnityEditor.Build.Pipeline;
 using UnityEngine;
-using VeUnityBuild.Editor.Contexts;
 using VeUnityBuild.Editor.Domains;
 using VeUnityBuild.Editor.UseCases;
 
 namespace VeUnityBuild.Editor.Presentations
 {
-    public static class BatchBuildEntryPoint
+    public static class BatchEntryPoint
     {
         public static void BuildAndroid()
         {

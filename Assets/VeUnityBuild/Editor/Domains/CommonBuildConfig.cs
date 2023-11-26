@@ -1,6 +1,6 @@
 using System;
 
-namespace VeUnityBuild.Editor.Contexts
+namespace VeUnityBuild.Editor.Domains
 {
     [Serializable]
     public class CommonBuildConfig

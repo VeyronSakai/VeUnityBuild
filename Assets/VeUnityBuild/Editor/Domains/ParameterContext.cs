@@ -1,6 +1,6 @@
 using UnityEditor.Build.Pipeline.Interfaces;
 
-namespace VeUnityBuild.Editor.Contexts
+namespace VeUnityBuild.Editor.Domains
 {
     public class ParameterContext : IContextObject
     {

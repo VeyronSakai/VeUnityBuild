@@ -1,7 +1,6 @@
 using UnityEditor;
 using UnityEditor.Build.Pipeline.Interfaces;
 using UnityEngine;
-using VeUnityBuild.Editor.Contexts;
 
 namespace VeUnityBuild.Editor.Domains
 {
@@ -14,6 +13,5 @@ namespace VeUnityBuild.Editor.Domains
 
         public IOSDetailConfig releaseConfig =
             new(buildOptions: BuildOptions.None, profileType: ProvisioningProfileType.Distribution);
-
     }
 }
