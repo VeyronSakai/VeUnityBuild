@@ -11,14 +11,14 @@ namespace VeUnityBuild.Editor.Presentations
     {
         private string _buildMode;
 
-        [MenuItem("Tools/VeUnityBuild/Build/iOS")]
+        [MenuItem("Window/VeUnityBuild/Build/iOS")]
         public static void ShowExample()
         {
             var wnd = GetWindow<IOSWindow>();
             wnd.titleContent = new GUIContent("iOS Build Window");
         }
 
-        [MenuItem("Tools/VeUnityBuild/CreateBuildConfig/iOS")]
+        [MenuItem("Window/VeUnityBuild/CreateBuildConfig/iOS")]
         public static void Create()
         {
             var dir = Path.GetDirectoryName(Constant.IOSBuildConfigPath);
@@ -63,12 +63,12 @@ namespace VeUnityBuild.Editor.Presentations
                 {
                     Debug.Log("Start iOS Building in Editor.");
 
-                    var parameterContext = new ParameterContext
+                    var parameterContext = new BuildParameter
                     {
                         BuildMode = _buildMode
                     };
 
-                    var returnCode = BuildIOSUseCase.BuildIOS(parameterContext);
+                    var returnCode = BuildIOSUseCase.Build(parameterContext);
                     Debug.Log($"Finish iOS Building in Editor. ReturnCode: {returnCode}");
                 }),
                 tooltip = "Execute iOS Build"

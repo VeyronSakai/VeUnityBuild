@@ -1,5 +1,6 @@
 using System.IO;
 using UnityEditor;
+using UnityEditor.Search;
 using UnityEngine;
 using UnityEngine.UIElements;
 using VeUnityBuild.Editor.Domains;
@@ -10,25 +11,33 @@ namespace VeUnityBuild.Editor.Presentations
     public class AndroidWindow : EditorWindow
     {
         private string _buildMode;
+        private TextField _buildConfigPathTextField;
 
-        [MenuItem("Tools/VeUnityBuild/Build/Android")]
-        public static void ShowExample()
+        [MenuItem("Window/VeUnityBuild/Build/Android")]
+        public static void Build()
         {
             var wnd = GetWindow<AndroidWindow>();
             wnd.titleContent = new GUIContent("Android Build Window");
         }
-        
-        [MenuItem("Tools/VeUnityBuild/CreateBuildConfig/Android")]
+
+        [MenuItem("Window/VeUnityBuild/CreateBuildConfig/Android")]
         public static void Create()
         {
-            var dir = Path.GetDirectoryName(Constant.AndroidBuildConfigPath);
-            if (!string.IsNullOrEmpty(dir) && !Directory.Exists(dir))
+            var path = Browse();
+            if (string.IsNullOrEmpty(path))
             {
-                Directory.CreateDirectory(dir);
+                return;
             }
 
-            var asset = CreateInstance<AndroidBuildConfig>();
-            AssetDatabase.CreateAsset(asset, Constant.AndroidBuildConfigPath);
+            var buildConfigPath = $"{path}/{Constant.AndroidBuildConfigPath}";
+            var dirPath = Path.GetDirectoryName(buildConfigPath);
+            if (!string.IsNullOrEmpty(dirPath) && !Directory.Exists(dirPath))
+            {
+                Directory.CreateDirectory(dirPath);
+            }
+
+            var buildConfigAsset = CreateInstance<AndroidBuildConfig>();
+            AssetDatabase.CreateAsset(buildConfigAsset, buildConfigPath);
             AssetDatabase.Refresh();
         }
 
@@ -56,6 +65,28 @@ namespace VeUnityBuild.Editor.Presentations
                 Debug.Log($"BuildMode: {_buildMode}");
             });
 
+            _buildConfigPathTextField = new TextField("Android Build Config Path");
+            root.Add(_buildConfigPathTextField);
+
+            var f = new ObjectField("Select Android Build Config")
+            {
+                objectType = typeof(AndroidBuildConfig)
+            };
+            // ObjectFieldが変更されたときのイベントリスナーを追加
+            f.RegisterValueChangedCallback(evt =>
+            {
+                var selectedObject = evt.newValue as AndroidBuildConfig;
+                // ここで選択されたオブジェクトに対する処理を行う
+            });
+
+            root.Add(f);
+
+            // var browseButton = new Button(BrowseFolder) { text = "Browse" };
+            // root.Add(browseButton);
+            //
+            // var createButton = new Button(CreateDirectory) { text = "Create Directory" };
+            // root.Add(createButton);
+
             var buildButton = new Button
             {
                 text = "Build",
@@ -63,7 +94,7 @@ namespace VeUnityBuild.Editor.Presentations
                 {
                     Debug.Log("Start Android Building in Editor.");
 
-                    var parameterContext = new ParameterContext
+                    var parameterContext = new BuildParameter
                     {
                         BuildMode = _buildMode
                     };
@@ -75,6 +106,24 @@ namespace VeUnityBuild.Editor.Presentations
             };
 
             root.Add(buildButton);
+        }
+
+        private static string Browse()
+        {
+            var absolutePath = EditorUtility.OpenFolderPanel("Select Folder", "", "");
+            if(string.IsNullOrEmpty(absolutePath))
+            {
+                return string.Empty;
+            }
+            
+            var dataPath = Application.dataPath;
+            if (absolutePath.StartsWith(dataPath))
+            {
+                return $"Assets{absolutePath[dataPath.Length..]}";
+            }
+
+            Debug.LogError("The selected folder is not part of the Assets folder.");
+            return string.Empty;
         }
     }
 }

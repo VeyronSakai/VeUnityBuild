@@ -11,7 +11,7 @@ namespace VeUnityBuild.Editor.Domains.Tasks
     public class IOSBuildTask : IBuildTask
     {
         [InjectContext(ContextUsage.In)] private readonly IOSBuildConfig _buildConfig;
-        [InjectContext(ContextUsage.In)] private readonly ParameterContext _parameterContext;
+        [InjectContext(ContextUsage.In)] private readonly BuildParameter _buildParameter;
 
         public int Version => Constant.Version;
 
@@ -20,7 +20,7 @@ namespace VeUnityBuild.Editor.Domains.Tasks
             PlayerSettings.iOS.appleEnableAutomaticSigning = false;
             BuildOptions buildOption;
 
-            switch (_parameterContext.BuildMode)
+            switch (_buildParameter.BuildMode)
             {
                 case Constant.BuildModeDebug:
                     PlayerSettings.iOS.iOSManualProvisioningProfileType = ProvisioningProfileType.Development;
@@ -33,7 +33,7 @@ namespace VeUnityBuild.Editor.Domains.Tasks
                     buildOption = _buildConfig.releaseConfig.buildOptions;
                     break;
                 default:
-                    throw new ArgumentException($"Invalid build mode: {_parameterContext.BuildMode}");
+                    throw new ArgumentException($"Invalid build mode: {_buildParameter.BuildMode}");
             }
 
             try

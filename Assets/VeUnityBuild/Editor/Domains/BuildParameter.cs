@@ -2,8 +2,9 @@ using UnityEditor.Build.Pipeline.Interfaces;
 
 namespace VeUnityBuild.Editor.Domains
 {
-    public class ParameterContext : IContextObject
+    public class BuildParameter : IContextObject
     {
         public string BuildMode;
+        public string BuildConfigPath;
     }
 }

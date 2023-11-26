@@ -11,17 +11,17 @@ namespace VeUnityBuild.Editor.Domains.Tasks
     public class AndroidBuildTask : IBuildTask
     {
         [InjectContext(ContextUsage.In)] private readonly AndroidBuildConfig _buildConfig;
-        [InjectContext(ContextUsage.In)] private readonly ParameterContext _parameterContext;
+        [InjectContext(ContextUsage.In)] private readonly BuildParameter _buildParameter;
 
         public int Version => Constant.Version;
 
         public ReturnCode Run()
         {
-            var buildOption = _parameterContext.BuildMode switch
+            var buildOption = _buildParameter.BuildMode switch
             {
                 Constant.BuildModeDebug => _buildConfig.debugConfig.buildOptions,
                 Constant.BuildModeRelease => _buildConfig.releaseConfig.buildOptions,
-                _ => throw new ArgumentException($"Invalid build mode: {_parameterContext.BuildMode}")
+                _ => throw new ArgumentException($"Invalid build mode: {_buildParameter.BuildMode}")
             };
 
             try

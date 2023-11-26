@@ -14,7 +14,7 @@ namespace VeUnityBuild.Editor.Domains.Tasks
     {
         [InjectContext(ContextUsage.In)] private readonly IOSBuildConfig _buildConfig;
 
-        [InjectContext(ContextUsage.In)] private readonly ParameterContext _parameterContext;
+        [InjectContext(ContextUsage.In)] private readonly BuildParameter _buildParameter;
 
         public int Version => Constant.Version;
 
@@ -51,11 +51,11 @@ namespace VeUnityBuild.Editor.Domains.Tasks
             xcodeProj.SetBuildProperty(targetGuid, "CODE_SIGN_STYLE", "Manual");
             xcodeProj.SetBuildProperty(projectGuid, "CODE_SIGN_STYLE", "Manual");
 
-            var profileId = _parameterContext.BuildMode switch
+            var profileId = _buildParameter.BuildMode switch
             {
                 Constant.BuildModeDebug => _buildConfig.debugConfig.profileId,
                 Constant.BuildModeRelease => _buildConfig.releaseConfig.profileId,
-                _ => throw new ArgumentException($"Invalid build mode: {_parameterContext.BuildMode}")
+                _ => throw new ArgumentException($"Invalid build mode: {_buildParameter.BuildMode}")
             };
 
             xcodeProj.SetBuildProperty(targetGuid, "PROVISIONING_PROFILE_SPECIFIER", profileId);

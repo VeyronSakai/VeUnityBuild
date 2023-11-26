@@ -14,7 +14,7 @@ namespace VeUnityBuild.Editor.Presentations
             Debug.Log("Start Android Building in batch mode.");
             var args = new CommandLineArgs();
             var buildMode = args.GetValue("-buildMode");
-            var parameterContext = new ParameterContext
+            var parameterContext = new BuildParameter
             {
                 BuildMode = buildMode
             };
@@ -35,12 +35,12 @@ namespace VeUnityBuild.Editor.Presentations
 
             var args = new CommandLineArgs();
             var buildMode = args.GetValue("-buildMode");
-            var parameterContext = new ParameterContext
+            var parameterContext = new BuildParameter
             {
                 BuildMode = buildMode
             };
 
-            var returnCode = BuildIOSUseCase.BuildIOS(parameterContext);
+            var returnCode = BuildIOSUseCase.Build(parameterContext);
             var isSuccess = new[]
             {
                 ReturnCode.Success, ReturnCode.SuccessCached, ReturnCode.SuccessNotRun
