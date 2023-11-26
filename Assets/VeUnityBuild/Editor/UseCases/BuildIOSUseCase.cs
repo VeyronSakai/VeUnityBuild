@@ -9,7 +9,7 @@ namespace VeUnityBuild.Editor.UseCases
 {
     public static class BuildIOSUseCase
     {
-        public static ReturnCode BuildIOS(IContextObject parameterContext)
+        public static ReturnCode Build(IContextObject parameterContext)
         {
             var tasks = new List<IBuildTask>
             {
