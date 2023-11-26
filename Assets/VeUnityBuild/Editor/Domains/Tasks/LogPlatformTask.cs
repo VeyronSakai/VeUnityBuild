@@ -3,7 +3,7 @@ using UnityEditor.Build.Pipeline;
 using UnityEditor.Build.Pipeline.Interfaces;
 using UnityEngine;
 
-namespace VeUnityBuild.Editor.Tasks
+namespace VeUnityBuild.Editor.Domains.Tasks
 {
     public class LogPlatformTask : IBuildTask
     {

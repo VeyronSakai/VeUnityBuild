@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace VeUnityBuild.Editor
+namespace VeUnityBuild.Editor.Domains
 {
     public class CommandLineArgs
     {

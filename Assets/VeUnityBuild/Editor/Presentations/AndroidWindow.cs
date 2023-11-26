@@ -1,19 +1,36 @@
+using System.IO;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 using VeUnityBuild.Editor.Contexts;
+using VeUnityBuild.Editor.Domains;
+using VeUnityBuild.Editor.UseCases;
 
-namespace VeUnityBuild.Editor.Windows
+namespace VeUnityBuild.Editor.Presentations
 {
-    public class IOSBuildWindow : EditorWindow
+    public class AndroidWindow : EditorWindow
     {
         private string _buildMode;
 
-        [MenuItem("Tools/VeUnityBuild/Build/iOS")]
+        [MenuItem("Tools/VeUnityBuild/Build/Android")]
         public static void ShowExample()
         {
-            var wnd = GetWindow<IOSBuildWindow>();
-            wnd.titleContent = new GUIContent("iOS Build Window");
+            var wnd = GetWindow<AndroidWindow>();
+            wnd.titleContent = new GUIContent("Android Build Window");
+        }
+        
+        [MenuItem("Tools/VeUnityBuild/CreateBuildConfig/Android")]
+        public static void Create()
+        {
+            var dir = Path.GetDirectoryName(Constant.AndroidBuildConfigPath);
+            if (!string.IsNullOrEmpty(dir) && !Directory.Exists(dir))
+            {
+                Directory.CreateDirectory(dir);
+            }
+
+            var asset = CreateInstance<AndroidBuildConfig>();
+            AssetDatabase.CreateAsset(asset, Constant.AndroidBuildConfigPath);
+            AssetDatabase.Refresh();
         }
 
         public void CreateGUI()
@@ -45,17 +62,17 @@ namespace VeUnityBuild.Editor.Windows
                 text = "Build",
                 clickable = new Clickable(() =>
                 {
-                    Debug.Log("Start iOS Building in Editor.");
+                    Debug.Log("Start Android Building in Editor.");
 
                     var parameterContext = new ParameterContext
                     {
                         BuildMode = _buildMode
                     };
 
-                    var returnCode = EntryPoint.BuildIOS(parameterContext);
-                    Debug.Log($"Finish iOS Building in Editor. ReturnCode: {returnCode}");
+                    var returnCode = BuildAndroidUseCase.Build(parameterContext);
+                    Debug.Log($"Finish Android Building in Editor. ReturnCode: {returnCode}");
                 }),
-                tooltip = "Execute iOS Build"
+                tooltip = "Execute Android Build"
             };
 
             root.Add(buildButton);

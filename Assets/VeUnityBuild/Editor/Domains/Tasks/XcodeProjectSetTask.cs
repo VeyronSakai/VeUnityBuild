@@ -7,10 +7,11 @@ using UnityEditor.Build.Pipeline.Interfaces;
 using UnityEditor.iOS.Xcode;
 using UnityEngine;
 using VeUnityBuild.Editor.Contexts;
+using VeUnityBuild.Editor.Presentations;
 
-namespace VeUnityBuild.Editor.Tasks
+namespace VeUnityBuild.Editor.Domains.Tasks
 {
-    public class XcodeSettingsTask : IBuildTask
+    public class XcodeProjectSetTask : IBuildTask
     {
         [InjectContext(ContextUsage.In)] private readonly IOSBuildConfig _buildConfig;
 

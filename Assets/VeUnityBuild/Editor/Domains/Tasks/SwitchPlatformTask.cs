@@ -3,7 +3,7 @@ using UnityEditor.Build.Pipeline;
 using UnityEditor.Build.Pipeline.Injector;
 using UnityEditor.Build.Pipeline.Interfaces;
 
-namespace VeUnityBuild.Editor.Tasks
+namespace VeUnityBuild.Editor.Domains.Tasks
 {
     public class SwitchPlatformTask : IBuildTask
     {
