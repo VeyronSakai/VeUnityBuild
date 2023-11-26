@@ -23,13 +23,13 @@ namespace VeUnityBuild.Editor.Presentations
         [MenuItem("Window/VeUnityBuild/CreateBuildConfig/Android")]
         public static void Create()
         {
-            var path = Browse();
-            if (string.IsNullOrEmpty(path))
+            var folderPath = Browse();
+            if (string.IsNullOrEmpty(folderPath))
             {
                 return;
             }
 
-            var buildConfigPath = $"{path}/{Constant.AndroidBuildConfigPath}";
+            var buildConfigPath = $"{folderPath}/{Constant.AndroidBuildConfigPath}";
             var dirPath = Path.GetDirectoryName(buildConfigPath);
             if (!string.IsNullOrEmpty(dirPath) && !Directory.Exists(dirPath))
             {
@@ -110,16 +110,16 @@ namespace VeUnityBuild.Editor.Presentations
 
         private static string Browse()
         {
-            var absolutePath = EditorUtility.OpenFolderPanel("Select Folder", "", "");
-            if(string.IsNullOrEmpty(absolutePath))
+            var selectedPath = EditorUtility.OpenFolderPanel("Select Folder", "", "");
+            if(string.IsNullOrEmpty(selectedPath))
             {
                 return string.Empty;
             }
             
             var dataPath = Application.dataPath;
-            if (absolutePath.StartsWith(dataPath))
+            if (selectedPath.StartsWith(dataPath))
             {
-                return $"Assets{absolutePath[dataPath.Length..]}";
+                return $"Assets{selectedPath[dataPath.Length..]}";
             }
 
             Debug.LogError("The selected folder is not part of the Assets folder.");
