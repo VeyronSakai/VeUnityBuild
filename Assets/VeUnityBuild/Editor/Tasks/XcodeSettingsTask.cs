@@ -16,7 +16,7 @@ namespace VeUnityBuild.Editor.Tasks
 
         [InjectContext(ContextUsage.In)] private readonly ParameterContext _parameterContext;
 
-        public int Version => 1;
+        public int Version => Constant.Version;
 
         public ReturnCode Run()
         {

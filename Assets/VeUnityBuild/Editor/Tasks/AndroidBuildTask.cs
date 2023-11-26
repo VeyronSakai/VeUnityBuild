@@ -13,7 +13,7 @@ namespace VeUnityBuild.Editor.Tasks
         [InjectContext(ContextUsage.In)] private readonly AndroidBuildConfig _buildConfig;
         [InjectContext(ContextUsage.In)] private readonly ParameterContext _parameterContext;
 
-        public int Version { get; }
+        public int Version => Constant.Version;
 
         public ReturnCode Run()
         {

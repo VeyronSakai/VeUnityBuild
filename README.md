@@ -22,5 +22,13 @@ The environment variable ANDROID_NDK_ROOT is undefined or empty, is the Android 
 ...
 ```
 
-- Check if the Android NDK is installed.
-- Check if the environment variable ANDROID_NDK_ROOT is set correctly.
+If you encounter the above errors, try the following:
+
+- In the case of executing a build with a GUI,
+  - Check if the Android NDK is installed.
+  - Check if Preferences > External Tools > Android > Android NDK path is set correctly.
+  - **Uncheck the "Android NDK Installed with Unity (recommended)" checkbox.
+    Then turn it back on and try to build Android.**
+- In case of executing a build from the command line (including execution with CI)
+  - Check if the environment variable ANDROID_NDK_ROOT is set correctly.
+

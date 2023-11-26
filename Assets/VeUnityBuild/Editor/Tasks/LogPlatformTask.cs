@@ -7,7 +7,7 @@ namespace VeUnityBuild.Editor.Tasks
 {
     public class LogPlatformTask : IBuildTask
     {
-        public int Version => 1;
+        public int Version => Constant.Version;
 
         public ReturnCode Run()
         {

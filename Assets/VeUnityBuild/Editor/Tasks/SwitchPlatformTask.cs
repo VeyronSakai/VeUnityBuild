@@ -9,7 +9,7 @@ namespace VeUnityBuild.Editor.Tasks
     {
         [InjectContext(ContextUsage.In)] private readonly ISwitchPlatformContext _context = null;
 
-        public int Version => 1;
+        public int Version => Constant.Version;
 
         public ReturnCode Run()
         {
