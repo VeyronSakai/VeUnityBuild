@@ -19,7 +19,7 @@ namespace VeUnityBuild.Editor.Presentations
                 BuildMode = buildMode
             };
 
-            var returnCode = BuildAndroidUseCase.Build(parameterContext);
+            var returnCode = BuildAndroidUseCase.Build(parameterContext, null);
             var isSuccess = new[]
             {
                 ReturnCode.Success, ReturnCode.SuccessCached, ReturnCode.SuccessNotRun

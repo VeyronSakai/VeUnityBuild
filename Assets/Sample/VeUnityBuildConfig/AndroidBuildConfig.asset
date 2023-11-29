@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AndroidBuildConfig
   m_EditorClassIdentifier: 
   commonConfig:
-    outputDirPath: 
+    outputDirPath: AndroidOutput
   debugConfig:
     buildOptions: 1
   releaseConfig:

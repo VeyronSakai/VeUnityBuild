@@ -1,6 +1,7 @@
 using System.IO;
 using UnityEditor;
-using UnityEditor.Search;
+// using UnityEditor.Search;
+// using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 using VeUnityBuild.Editor.Domains;
@@ -12,6 +13,7 @@ namespace VeUnityBuild.Editor.Presentations
     {
         private string _buildMode;
         private TextField _buildConfigPathTextField;
+        private AndroidBuildConfig _buildConfig;
 
         [MenuItem("Window/VeUnityBuild/Build/Android")]
         public static void Build()
@@ -65,27 +67,17 @@ namespace VeUnityBuild.Editor.Presentations
                 Debug.Log($"BuildMode: {_buildMode}");
             });
 
-            _buildConfigPathTextField = new TextField("Android Build Config Path");
-            root.Add(_buildConfigPathTextField);
-
-            var f = new ObjectField("Select Android Build Config")
+            var objectField = new UnityEditor.UIElements.ObjectField("Android Build Config")
             {
                 objectType = typeof(AndroidBuildConfig)
             };
-            // ObjectFieldが変更されたときのイベントリスナーを追加
-            f.RegisterValueChangedCallback(evt =>
+            
+            objectField.RegisterValueChangedCallback(evt =>
             {
-                var selectedObject = evt.newValue as AndroidBuildConfig;
-                // ここで選択されたオブジェクトに対する処理を行う
+                _buildConfig = evt.newValue as AndroidBuildConfig;
             });
 
-            root.Add(f);
-
-            // var browseButton = new Button(BrowseFolder) { text = "Browse" };
-            // root.Add(browseButton);
-            //
-            // var createButton = new Button(CreateDirectory) { text = "Create Directory" };
-            // root.Add(createButton);
+            root.Add(objectField);
 
             var buildButton = new Button
             {
@@ -99,7 +91,7 @@ namespace VeUnityBuild.Editor.Presentations
                         BuildMode = _buildMode
                     };
 
-                    var returnCode = BuildAndroidUseCase.Build(parameterContext);
+                    var returnCode = BuildAndroidUseCase.Build(parameterContext, _buildConfig);
                     Debug.Log($"Finish Android Building in Editor. ReturnCode: {returnCode}");
                 }),
                 tooltip = "Execute Android Build"
@@ -111,11 +103,11 @@ namespace VeUnityBuild.Editor.Presentations
         private static string Browse()
         {
             var selectedPath = EditorUtility.OpenFolderPanel("Select Folder", "", "");
-            if(string.IsNullOrEmpty(selectedPath))
+            if (string.IsNullOrEmpty(selectedPath))
             {
                 return string.Empty;
             }
-            
+
             var dataPath = Application.dataPath;
             if (selectedPath.StartsWith(dataPath))
             {

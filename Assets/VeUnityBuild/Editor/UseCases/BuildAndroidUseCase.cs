@@ -9,18 +9,18 @@ namespace VeUnityBuild.Editor.UseCases
 {
     public sealed class BuildAndroidUseCase
     {
-        public static ReturnCode Build(IContextObject parameterContext)
+        public static ReturnCode Build(IContextObject parameterContext, AndroidBuildConfig androidBuildConfig)
         {
             var tasks = new List<IBuildTask>
             {
                 new AndroidBuildTask(),
             };
 
-            var config =
-                AssetDatabase.LoadAssetAtPath<AndroidBuildConfig>(Constant.AndroidBuildConfigPath);
+            // var config =
+            //     AssetDatabase.LoadAssetAtPath<AndroidBuildConfig>();
 
             var contexts = new BuildContext();
-            contexts.SetContextObject(config);
+            contexts.SetContextObject(androidBuildConfig);
             contexts.SetContextObject(parameterContext);
 
             return BuildTasksRunner.Run(tasks, contexts);
