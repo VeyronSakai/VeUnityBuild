@@ -1,5 +1,6 @@
 using System.Linq;
 using UnityEditor;
+using UnityEditor.Build;
 using UnityEditor.Build.Pipeline;
 using UnityEngine;
 using VeUnityBuild.Editor.Domains;
@@ -12,14 +13,31 @@ namespace VeUnityBuild.Editor.Presentations
         public static void BuildAndroid()
         {
             Debug.Log("Start Android Building in batch mode.");
-            var args = new CommandLineArgs();
-            var buildMode = args.GetValue("-buildMode");
+            var getCommandLineArgsUseCase = new GetCommandLineArgsUseCase();
+            var buildMode = getCommandLineArgsUseCase.GetValue("-buildMode");
+            if (string.IsNullOrEmpty(buildMode))
+            {
+                throw new BuildFailedException("BuildMode is not specified.");
+            }
+
             var parameterContext = new BuildParameter
             {
                 BuildMode = buildMode
             };
 
-            var returnCode = BuildAndroidUseCase.Build(parameterContext, null);
+            var buildConfigPath = getCommandLineArgsUseCase.GetValue("-buildConfig");
+            if (string.IsNullOrEmpty(buildConfigPath))
+            {
+                throw new BuildFailedException($"BuildConfig is not found. Path: {buildConfigPath}");
+            }
+
+            var buildConfig = AssetDatabase.LoadAssetAtPath<AndroidBuildConfig>(buildConfigPath);
+            if (buildConfig == null)
+            {
+                throw new BuildFailedException($"BuildConfig is not found. Path: {buildConfigPath}");
+            }
+
+            var returnCode = BuildAndroidUseCase.Build(parameterContext, buildConfig);
             var isSuccess = new[]
             {
                 ReturnCode.Success, ReturnCode.SuccessCached, ReturnCode.SuccessNotRun
@@ -33,7 +51,7 @@ namespace VeUnityBuild.Editor.Presentations
         {
             Debug.Log("Start iOS Building in batch mode.");
 
-            var args = new CommandLineArgs();
+            var args = new GetCommandLineArgsUseCase();
             var buildMode = args.GetValue("-buildMode");
             var parameterContext = new BuildParameter
             {
