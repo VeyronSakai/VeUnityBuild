@@ -5,6 +5,25 @@
 - Unity 2022.3.14f1 or later
 - Scriptable Build Pipeline 1.21.21 or later
 
+## Usage
+
+### Set Build Config
+
+### Execute Build from GUI
+
+### Execute Build from CLI
+
+```sh
+/path/to/Unity \
+  -quit \
+  -batchmode \
+  -nographics \
+  -projectPath /path/to/Project \
+  -buildTarget Android \
+  -executeMethod VeUnityBuild.Editor.Presentations.BatchEntryPoint.BuildAndroid \ 
+  -buildMode debug \
+  -buildConfig /path/to/BuildConfig # Specify a path starting with Assets. ex: Assets/Sample/VeUnityBuildConfig/AndroidBuildConfig.asset
+```
 
 ## Trouble Shooting
 

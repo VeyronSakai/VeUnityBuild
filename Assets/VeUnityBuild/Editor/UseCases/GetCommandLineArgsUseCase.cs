@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
 
-namespace VeUnityBuild.Editor.Domains
+namespace VeUnityBuild.Editor.UseCases
 {
-    public class CommandLineArgs
+    public class GetCommandLineArgsUseCase
     {
-        private readonly Dictionary<string, string> _dict = new();
+        private readonly Dictionary<string, string> dict = new();
 
-        public CommandLineArgs()
+        public GetCommandLineArgsUseCase()
         {
             var args = Environment.GetCommandLineArgs();
             for (var i = 0; i < args.Length; i++)
@@ -16,23 +16,24 @@ namespace VeUnityBuild.Editor.Domains
 
                 if (i + 1 < args.Length && !args[i + 1].StartsWith('-'))
                 {
-                    _dict.Add(args[i], args[i + 1]);
+                    dict.Add(args[i], args[i + 1]);
                 }
                 else
                 {
-                    _dict.Add(args[i], string.Empty);
+                    dict.Add(args[i], string.Empty);
                 }
             }
         }
 
         public bool Has(string key)
         {
-            return _dict.ContainsKey(key);
+            return dict.ContainsKey(key);
         }
 
         public string GetValue(string key)
         {
-            return _dict[key];
+            dict.TryGetValue(key, out var value);
+            return value;
         }
     }
 }
