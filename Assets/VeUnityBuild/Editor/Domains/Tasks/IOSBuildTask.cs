@@ -9,8 +9,8 @@ namespace VeUnityBuild.Editor.Domains.Tasks
 {
     public class IOSBuildTask : IBuildTask
     {
-        [InjectContext(ContextUsage.In)] private readonly IOSBuildConfig _buildConfig;
-        [InjectContext(ContextUsage.In)] private readonly BuildParameter _buildParameter;
+        [InjectContext(ContextUsage.In)] readonly IOSBuildConfig _buildConfig;
+        [InjectContext(ContextUsage.In)] readonly BuildParameter _buildParameter;
 
         public int Version => Constant.Version;
 

@@ -8,10 +8,10 @@ namespace VeUnityBuild.Editor.Domains
     {
         public CommonBuildConfig commonConfig;
 
-        public IOSDetailConfig debugConfig = new(buildOptions: BuildOptions.Development,
-            profileType: ProvisioningProfileType.Development);
+        public IOSDetailConfig debugConfig = new(BuildOptions.Development,
+            ProvisioningProfileType.Development);
 
         public IOSDetailConfig releaseConfig =
-            new(buildOptions: BuildOptions.None, profileType: ProvisioningProfileType.Distribution);
+            new(BuildOptions.None, ProvisioningProfileType.Distribution);
     }
 }

@@ -7,7 +7,7 @@ namespace VeUnityBuild.Editor.Domains.Tasks
 {
     public class SwitchPlatformTask : IBuildTask
     {
-        [InjectContext(ContextUsage.In)] private readonly ISwitchPlatformContext _context = null;
+        [InjectContext(ContextUsage.In)] readonly ISwitchPlatformContext _context = null;
 
         public int Version => Constant.Version;
 
@@ -27,13 +27,13 @@ namespace VeUnityBuild.Editor.Domains.Tasks
 
     public class SwitchPlatformContext : ISwitchPlatformContext
     {
-        public BuildTargetGroup Group { get; }
-        public BuildTarget Target { get; }
-
         public SwitchPlatformContext(BuildTargetGroup group, BuildTarget target)
         {
             Group = group;
             Target = target;
         }
+
+        public BuildTargetGroup Group { get; }
+        public BuildTarget Target { get; }
     }
 }

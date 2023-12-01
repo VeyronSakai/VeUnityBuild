@@ -20,10 +20,7 @@ namespace VeUnityBuild.Editor.Presentations
                 throw new BuildFailedException("BuildMode is not specified.");
             }
 
-            var parameterContext = new BuildParameter
-            {
-                BuildMode = buildMode
-            };
+            var parameterContext = new BuildParameter { BuildMode = buildMode };
 
             var buildConfigPath = getCommandLineArgsUseCase.GetValue("-buildConfig");
             if (string.IsNullOrEmpty(buildConfigPath))
@@ -38,10 +35,7 @@ namespace VeUnityBuild.Editor.Presentations
             }
 
             var returnCode = BuildAndroidUseCase.Build(parameterContext, buildConfig);
-            var isSuccess = new[]
-            {
-                ReturnCode.Success, ReturnCode.SuccessCached, ReturnCode.SuccessNotRun
-            }.Contains(returnCode);
+            var isSuccess = new[] { ReturnCode.Success, ReturnCode.SuccessCached, ReturnCode.SuccessNotRun }.Contains(returnCode);
 
             Debug.Log($"Finish Android Building in batch mode. ReturnCode: {returnCode}");
             EditorApplication.Exit(isSuccess ? 0 : 1);
@@ -53,16 +47,11 @@ namespace VeUnityBuild.Editor.Presentations
 
             var args = new GetCommandLineArgsUseCase();
             var buildMode = args.GetValue("-buildMode");
-            var parameterContext = new BuildParameter
-            {
-                BuildMode = buildMode
-            };
+            var parameterContext = new BuildParameter { BuildMode = buildMode };
 
             var returnCode = BuildIOSUseCase.Build(parameterContext);
-            var isSuccess = new[]
-            {
-                ReturnCode.Success, ReturnCode.SuccessCached, ReturnCode.SuccessNotRun
-            }.Contains(returnCode);
+            var isSuccess =
+                new[] { ReturnCode.Success, ReturnCode.SuccessCached, ReturnCode.SuccessNotRun }.Contains(returnCode);
 
             Debug.Log($"Finish iOS Building in batch mode. ReturnCode: {returnCode}");
             EditorApplication.Exit(isSuccess ? 0 : 1);

@@ -9,8 +9,8 @@ namespace VeUnityBuild.Editor.Domains
     public class AndroidBuildConfig : ScriptableObject, IContextObject
     {
         public CommonBuildConfig commonConfig;
-        public AndroidDetailConfig debugConfig = new(buildOptions: BuildOptions.Development);
-        public AndroidDetailConfig releaseConfig = new(buildOptions: BuildOptions.None);
+        public AndroidDetailConfig debugConfig = new(BuildOptions.Development);
+        public AndroidDetailConfig releaseConfig = new(BuildOptions.None);
         public AndroidExportFormat exportFormat;
     }
 }

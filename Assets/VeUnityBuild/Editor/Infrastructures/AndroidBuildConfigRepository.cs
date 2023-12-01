@@ -5,7 +5,7 @@ namespace VeUnityBuild.Editor.Infrastructures
 {
     public class AndroidBuildConfigRepository
     {
-        private AndroidBuildConfig _buildConfig;
+        AndroidBuildConfig _buildConfig;
 
         public void Save(AndroidBuildConfig buildConfig)
         {

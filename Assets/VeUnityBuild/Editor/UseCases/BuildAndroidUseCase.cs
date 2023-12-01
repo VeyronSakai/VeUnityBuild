@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using UnityEditor;
 using UnityEditor.Build.Pipeline;
 using UnityEditor.Build.Pipeline.Interfaces;
 using VeUnityBuild.Editor.Domains;
@@ -11,13 +10,7 @@ namespace VeUnityBuild.Editor.UseCases
     {
         public static ReturnCode Build(IContextObject parameterContext, AndroidBuildConfig androidBuildConfig)
         {
-            var tasks = new List<IBuildTask>
-            {
-                new AndroidBuildTask(),
-            };
-
-            // var config =
-            //     AssetDatabase.LoadAssetAtPath<AndroidBuildConfig>();
+            var tasks = new List<IBuildTask> { new AndroidBuildTask() };
 
             var contexts = new BuildContext();
             contexts.SetContextObject(androidBuildConfig);
