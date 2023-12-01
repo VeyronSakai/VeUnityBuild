@@ -71,7 +71,7 @@ namespace VeUnityBuild.Editor.Presentations
         [MenuItem("Window/VeUnityBuild/CreateBuildConfig/Android")]
         public static void Create()
         {
-            var folderPath = Browse();
+            var folderPath = BrowseUseCase.Browse();
             if (string.IsNullOrEmpty(folderPath))
             {
                 return;
@@ -87,24 +87,8 @@ namespace VeUnityBuild.Editor.Presentations
             var buildConfigAsset = CreateInstance<AndroidBuildConfig>();
             AssetDatabase.CreateAsset(buildConfigAsset, buildConfigPath);
             AssetDatabase.Refresh();
-        }
-
-        static string Browse()
-        {
-            var selectedPath = EditorUtility.OpenFolderPanel("Select Folder", "", "");
-            if (string.IsNullOrEmpty(selectedPath))
-            {
-                return string.Empty;
-            }
-
-            var dataPath = Application.dataPath;
-            if (selectedPath.StartsWith(dataPath))
-            {
-                return $"Assets{selectedPath[dataPath.Length..]}";
-            }
-
-            Debug.LogError("The selected folder is not part of the Assets folder.");
-            return string.Empty;
+            
+            Debug.Log($"Create Android Build Config. Path: {buildConfigPath}");
         }
     }
 }

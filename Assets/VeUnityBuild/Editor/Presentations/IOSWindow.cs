@@ -55,19 +55,28 @@ namespace VeUnityBuild.Editor.Presentations
             var wnd = GetWindow<IOSWindow>();
             wnd.titleContent = new GUIContent("iOS Build Window");
         }
-
+        
         [MenuItem("Window/VeUnityBuild/CreateBuildConfig/iOS")]
         public static void Create()
         {
-            var dir = Path.GetDirectoryName(Constant.IOSBuildConfigPath);
-            if (!string.IsNullOrEmpty(dir) && !Directory.Exists(dir))
+            var folderPath = BrowseUseCase.Browse();
+            if (string.IsNullOrEmpty(folderPath))
             {
-                Directory.CreateDirectory(dir);
+                return;
             }
 
-            var asset = CreateInstance<IOSBuildConfig>();
-            AssetDatabase.CreateAsset(asset, Constant.IOSBuildConfigPath);
+            var buildConfigPath = $"{folderPath}/{Constant.IOSBuildConfigPath}";
+            var dirPath = Path.GetDirectoryName(buildConfigPath);
+            if (!string.IsNullOrEmpty(dirPath) && !Directory.Exists(dirPath))
+            {
+                Directory.CreateDirectory(dirPath);
+            }
+
+            var buildConfigAsset = CreateInstance<IOSBuildConfig>();
+            AssetDatabase.CreateAsset(buildConfigAsset, buildConfigPath);
             AssetDatabase.Refresh();
+            
+            Debug.Log($"Create iOS Build Config. Path: {buildConfigPath}");
         }
     }
 }
