@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace VeUnityBuild.Editor.Domains
 {
-    public class IOSBuildConfig : ScriptableObject, IContextObject
+    public class IOSBuildConfig : BuildConfig
     {
         public CommonBuildConfig commonConfig;
 
