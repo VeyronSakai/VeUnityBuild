@@ -11,7 +11,6 @@ namespace VeUnityBuild.Editor.Presentations
     public class AndroidWindow : EditorWindow
     {
         AndroidBuildConfig _buildConfig;
-        TextField _buildConfigPathTextField;
         string _buildMode;
 
         public void CreateGUI()
@@ -34,7 +33,10 @@ namespace VeUnityBuild.Editor.Presentations
                 Debug.Log($"BuildMode: {_buildMode}");
             });
 
-            var objectField = new ObjectField("Android Build Config") { objectType = typeof(AndroidBuildConfig) };
+            var objectField = new ObjectField("Android Build Config")
+            {
+                objectType = typeof(AndroidBuildConfig), allowSceneObjects = false
+            };
 
             objectField.RegisterValueChangedCallback(evt =>
             {
@@ -87,7 +89,7 @@ namespace VeUnityBuild.Editor.Presentations
             var buildConfigAsset = CreateInstance<AndroidBuildConfig>();
             AssetDatabase.CreateAsset(buildConfigAsset, buildConfigPath);
             AssetDatabase.Refresh();
-            
+
             Debug.Log($"Create Android Build Config. Path: {buildConfigPath}");
         }
     }
