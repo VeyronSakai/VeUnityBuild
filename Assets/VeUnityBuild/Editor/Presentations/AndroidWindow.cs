@@ -1,9 +1,10 @@
-using System.IO;
 using UnityEditor;
+using UnityEditor.Build.Pipeline.Interfaces;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 using VeUnityBuild.Editor.Domains;
+using VeUnityBuild.Editor.Infrastructures;
 using VeUnityBuild.Editor.UseCases;
 
 namespace VeUnityBuild.Editor.Presentations
@@ -54,7 +55,7 @@ namespace VeUnityBuild.Editor.Presentations
 
                     var parameterContext = new BuildParameter { BuildMode = _buildMode };
 
-                    var returnCode = BuildAndroidUseCase.Build(parameterContext, _buildConfig);
+                    var returnCode = BuildAndroidUseCase.Build(new IContextObject[] { parameterContext, _buildConfig });
                     Debug.Log($"Finish Android Building in Editor. ReturnCode: {returnCode}");
                 }),
                 tooltip = "Execute Android Build"
@@ -73,24 +74,13 @@ namespace VeUnityBuild.Editor.Presentations
         [MenuItem("Window/VeUnityBuild/CreateBuildConfig/Android")]
         public static void Create()
         {
-            var folderPath = BrowseUseCase.Browse();
-            if (string.IsNullOrEmpty(folderPath))
+            var outputDirPath = BrowseUseCase.Browse();
+            if (string.IsNullOrEmpty(outputDirPath))
             {
                 return;
             }
 
-            var buildConfigPath = $"{folderPath}/{Constant.AndroidBuildConfigPath}";
-            var dirPath = Path.GetDirectoryName(buildConfigPath);
-            if (!string.IsNullOrEmpty(dirPath) && !Directory.Exists(dirPath))
-            {
-                Directory.CreateDirectory(dirPath);
-            }
-
-            var buildConfigAsset = CreateInstance<AndroidBuildConfig>();
-            AssetDatabase.CreateAsset(buildConfigAsset, buildConfigPath);
-            AssetDatabase.Refresh();
-
-            Debug.Log($"Create Android Build Config. Path: {buildConfigPath}");
+            BuildConfigRepository.Save<AndroidBuildConfig>(outputDirPath, Constant.AndroidBuildConfigName);
         }
     }
 }

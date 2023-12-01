@@ -1,9 +1,11 @@
 using System.IO;
 using UnityEditor;
+using UnityEditor.Build.Pipeline.Interfaces;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 using VeUnityBuild.Editor.Domains;
+using VeUnityBuild.Editor.Infrastructures;
 using VeUnityBuild.Editor.UseCases;
 
 namespace VeUnityBuild.Editor.Presentations
@@ -51,7 +53,7 @@ namespace VeUnityBuild.Editor.Presentations
                 {
                     Debug.Log("Start iOS Building in Editor.");
                     var parameterContext = new BuildParameter { BuildMode = _buildMode };
-                    var returnCode = BuildIOSUseCase.Build(parameterContext, _buildConfig);
+                    var returnCode = BuildIOSUseCase.Build(new IContextObject[] { parameterContext, _buildConfig });
                     Debug.Log($"Finish iOS Building in Editor. ReturnCode: {returnCode}");
                 }),
                 tooltip = "Execute iOS Build"
@@ -61,7 +63,7 @@ namespace VeUnityBuild.Editor.Presentations
         }
 
         [MenuItem("Window/VeUnityBuild/Build/iOS")]
-        public static void ShowExample()
+        public static void ShowBuildWindow()
         {
             var wnd = GetWindow<IOSWindow>();
             wnd.titleContent = new GUIContent("iOS Build Window");
@@ -70,24 +72,13 @@ namespace VeUnityBuild.Editor.Presentations
         [MenuItem("Window/VeUnityBuild/CreateBuildConfig/iOS")]
         public static void Create()
         {
-            var folderPath = BrowseUseCase.Browse();
-            if (string.IsNullOrEmpty(folderPath))
+            var outputDirPath = BrowseUseCase.Browse();
+            if (string.IsNullOrEmpty(outputDirPath))
             {
                 return;
             }
 
-            var buildConfigPath = $"{folderPath}/{Constant.IOSBuildConfigPath}";
-            var dirPath = Path.GetDirectoryName(buildConfigPath);
-            if (!string.IsNullOrEmpty(dirPath) && !Directory.Exists(dirPath))
-            {
-                Directory.CreateDirectory(dirPath);
-            }
-
-            var buildConfigAsset = CreateInstance<IOSBuildConfig>();
-            AssetDatabase.CreateAsset(buildConfigAsset, buildConfigPath);
-            AssetDatabase.Refresh();
-
-            Debug.Log($"Create iOS Build Config. Path: {buildConfigPath}");
+            BuildConfigRepository.Save<IOSBuildConfig>(outputDirPath, Constant.IOSBuildConfigName);
         }
     }
 }
