@@ -65,7 +65,7 @@ namespace VeUnityBuild.Editor.Presentations
         }
 
         [MenuItem("Window/VeUnityBuild/Build/Android")]
-        public static void Build()
+        public static void ShowBuildWindow()
         {
             var wnd = GetWindow<AndroidWindow>();
             wnd.titleContent = new GUIContent("Android Build Window");
