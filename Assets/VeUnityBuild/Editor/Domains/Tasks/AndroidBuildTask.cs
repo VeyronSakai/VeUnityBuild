@@ -9,8 +9,8 @@ namespace VeUnityBuild.Editor.Domains.Tasks
 {
     public class AndroidBuildTask : IBuildTask
     {
-        [InjectContext(ContextUsage.In)] private readonly AndroidBuildConfig _buildConfig;
-        [InjectContext(ContextUsage.In)] private readonly BuildParameter _buildParameter;
+        [InjectContext(ContextUsage.In)] readonly AndroidBuildConfig _buildConfig;
+        [InjectContext(ContextUsage.In)] readonly BuildParameter _buildParameter;
 
         public int Version => Constant.Version;
 

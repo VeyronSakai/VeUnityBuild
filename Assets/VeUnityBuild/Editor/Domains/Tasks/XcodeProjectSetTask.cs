@@ -11,9 +11,9 @@ namespace VeUnityBuild.Editor.Domains.Tasks
 {
     public class XcodeProjectSetTask : IBuildTask
     {
-        [InjectContext(ContextUsage.In)] private readonly IOSBuildConfig _buildConfig;
+        [InjectContext(ContextUsage.In)] readonly IOSBuildConfig _buildConfig;
 
-        [InjectContext(ContextUsage.In)] private readonly BuildParameter _buildParameter;
+        [InjectContext(ContextUsage.In)] readonly BuildParameter _buildParameter;
 
         public int Version => Constant.Version;
 
@@ -36,7 +36,7 @@ namespace VeUnityBuild.Editor.Domains.Tasks
             return ReturnCode.Success;
         }
 
-        private void FixXcodeProjSettings(string xcodeProjPath)
+        void FixXcodeProjSettings(string xcodeProjPath)
         {
             var xcodeProj = new PBXProject();
             xcodeProj.ReadFromString(File.ReadAllText(xcodeProjPath));

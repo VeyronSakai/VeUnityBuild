@@ -5,14 +5,17 @@ namespace VeUnityBuild.Editor.UseCases
 {
     public class GetCommandLineArgsUseCase
     {
-        private readonly Dictionary<string, string> dict = new();
+        readonly Dictionary<string, string> dict = new();
 
         public GetCommandLineArgsUseCase()
         {
             var args = Environment.GetCommandLineArgs();
             for (var i = 0; i < args.Length; i++)
             {
-                if (!args[i].StartsWith('-')) continue;
+                if (!args[i].StartsWith('-'))
+                {
+                    continue;
+                }
 
                 if (i + 1 < args.Length && !args[i + 1].StartsWith('-'))
                 {
