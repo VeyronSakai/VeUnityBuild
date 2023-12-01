@@ -9,15 +9,11 @@ namespace VeUnityBuild.Editor.UseCases
 {
     public static class BuildIOSUseCase
     {
-        public static ReturnCode Build(IContextObject parameterContext)
+        public static ReturnCode Build(IContextObject parameterContext, IOSBuildConfig buildConfig)
         {
             var tasks = new List<IBuildTask> { new IOSBuildTask(), new XcodeProjectSetTask() };
-
-            var config =
-                AssetDatabase.LoadAssetAtPath<IOSBuildConfig>(Constant.IOSBuildConfigPath);
-
             var contexts = new BuildContext();
-            contexts.SetContextObject(config);
+            contexts.SetContextObject(buildConfig);
             contexts.SetContextObject(parameterContext);
 
             var returnCode = BuildTasksRunner.Run(tasks, contexts);

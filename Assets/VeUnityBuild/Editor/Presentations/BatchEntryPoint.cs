@@ -49,7 +49,7 @@ namespace VeUnityBuild.Editor.Presentations
             var buildMode = args.GetValue("-buildMode");
             var parameterContext = new BuildParameter { BuildMode = buildMode };
 
-            var returnCode = BuildIOSUseCase.Build(parameterContext);
+            var returnCode = BuildIOSUseCase.Build(parameterContext, default);
             var isSuccess =
                 new[] { ReturnCode.Success, ReturnCode.SuccessCached, ReturnCode.SuccessNotRun }.Contains(returnCode);
 

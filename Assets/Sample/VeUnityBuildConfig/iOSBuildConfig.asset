@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: iOSBuildConfig
   m_EditorClassIdentifier: 
   commonConfig:
-    outputDirPath: 
+    outputDirPath: iOSOutput
   debugConfig:
     buildOptions: 1
-    profileId: 
+    profileId: com.foo.bar
     profileType: 1
   releaseConfig:
     buildOptions: 0
-    profileId: 
+    profileId: com.foo.bar
     profileType: 2

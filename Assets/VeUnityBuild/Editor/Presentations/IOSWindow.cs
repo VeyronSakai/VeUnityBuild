@@ -1,5 +1,6 @@
 using System.IO;
 using UnityEditor;
+using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 using VeUnityBuild.Editor.Domains;
@@ -9,6 +10,7 @@ namespace VeUnityBuild.Editor.Presentations
 {
     public class IOSWindow : EditorWindow
     {
+        IOSBuildConfig _buildConfig;
         string _buildMode;
 
         public void CreateGUI()
@@ -31,16 +33,25 @@ namespace VeUnityBuild.Editor.Presentations
                 Debug.Log($"BuildMode: {_buildMode}");
             });
 
+            var objectField = new ObjectField("iOS Build Config")
+            {
+                objectType = typeof(IOSBuildConfig), allowSceneObjects = false
+            };
+            objectField.RegisterValueChangedCallback(evt =>
+            {
+                _buildConfig = evt.newValue as IOSBuildConfig;
+            });
+
+            root.Add(objectField);
+
             var buildButton = new Button
             {
                 text = "Build",
                 clickable = new Clickable(() =>
                 {
                     Debug.Log("Start iOS Building in Editor.");
-
                     var parameterContext = new BuildParameter { BuildMode = _buildMode };
-
-                    var returnCode = BuildIOSUseCase.Build(parameterContext);
+                    var returnCode = BuildIOSUseCase.Build(parameterContext, _buildConfig);
                     Debug.Log($"Finish iOS Building in Editor. ReturnCode: {returnCode}");
                 }),
                 tooltip = "Execute iOS Build"
@@ -55,7 +66,7 @@ namespace VeUnityBuild.Editor.Presentations
             var wnd = GetWindow<IOSWindow>();
             wnd.titleContent = new GUIContent("iOS Build Window");
         }
-        
+
         [MenuItem("Window/VeUnityBuild/CreateBuildConfig/iOS")]
         public static void Create()
         {
@@ -75,7 +86,7 @@ namespace VeUnityBuild.Editor.Presentations
             var buildConfigAsset = CreateInstance<IOSBuildConfig>();
             AssetDatabase.CreateAsset(buildConfigAsset, buildConfigPath);
             AssetDatabase.Refresh();
-            
+
             Debug.Log($"Create iOS Build Config. Path: {buildConfigPath}");
         }
     }
