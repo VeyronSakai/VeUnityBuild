@@ -7,6 +7,9 @@ namespace VeUnityBuild.Editor
         public const string IOSBuildConfigPath = BuildConfigDirName + "/iOSBuildConfig.asset";
         public const string BuildModeDebug = "debug";
         public const string BuildModeRelease = "release";
+
+        public const string BuildModeOptionKey = "-buildMode";
+        public const string BuildConfigOptionKey = "-buildConfig";
         public const int Version = 1;
     }
 }

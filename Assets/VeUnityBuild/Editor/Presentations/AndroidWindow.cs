@@ -1,5 +1,6 @@
 using System.IO;
 using UnityEditor;
+using UnityEditor.Build.Pipeline.Interfaces;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -54,7 +55,7 @@ namespace VeUnityBuild.Editor.Presentations
 
                     var parameterContext = new BuildParameter { BuildMode = _buildMode };
 
-                    var returnCode = BuildAndroidUseCase.Build(parameterContext, _buildConfig);
+                    var returnCode = BuildAndroidUseCase.Build(new IContextObject[] { parameterContext, _buildConfig });
                     Debug.Log($"Finish Android Building in Editor. ReturnCode: {returnCode}");
                 }),
                 tooltip = "Execute Android Build"
