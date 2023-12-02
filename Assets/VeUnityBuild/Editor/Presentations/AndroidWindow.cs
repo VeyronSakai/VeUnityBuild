@@ -80,7 +80,7 @@ namespace VeUnityBuild.Editor.Presentations
                 return;
             }
 
-            BuildConfigRepository.Save<AndroidBuildConfig>(outputDirPath, Constant.AndroidBuildConfigName);
+            BuildConfigRepository.SaveBuildConfig<AndroidBuildConfig>(outputDirPath, Constant.AndroidBuildConfigName);
         }
     }
 }

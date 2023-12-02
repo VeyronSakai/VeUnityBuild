@@ -1,4 +1,3 @@
-using System.IO;
 using UnityEditor;
 using UnityEditor.Build.Pipeline.Interfaces;
 using UnityEditor.UIElements;
@@ -78,7 +77,7 @@ namespace VeUnityBuild.Editor.Presentations
                 return;
             }
 
-            BuildConfigRepository.Save<IOSBuildConfig>(outputDirPath, Constant.IOSBuildConfigName);
+            BuildConfigRepository.SaveBuildConfig<IOSBuildConfig>(outputDirPath, Constant.IOSBuildConfigName);
         }
     }
 }

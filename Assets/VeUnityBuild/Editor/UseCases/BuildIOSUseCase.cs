@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
-using UnityEditor;
 using UnityEditor.Build.Pipeline;
 using UnityEditor.Build.Pipeline.Interfaces;
-using VeUnityBuild.Editor.Domains;
 using VeUnityBuild.Editor.Domains.Tasks;
 
 namespace VeUnityBuild.Editor.UseCases
