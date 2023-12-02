@@ -6,7 +6,7 @@ namespace VeUnityBuild.Editor.Infrastructures
 {
     public class BuildConfigRepository
     {
-        public static void Save<T>(string outputDirPath, string buildConfigName) where T : BuildConfig
+        public static void SaveBuildConfig<T>(string outputDirPath, string buildConfigName) where T : BuildConfig
         {
             var buildConfigPath = $"{outputDirPath}/{buildConfigName}";
             var buildConfigAsset = ScriptableObject.CreateInstance<T>();
