@@ -5,6 +5,12 @@
 - Unity 2022.3.14f1 or later
 - Scriptable Build Pipeline 1.21.21 or later
 
+## Installation
+
+1. Open the Package Manager from `Window` > `Package Manager`
+2. "+" button > `Install package from git URL` 
+3. Input `https://github.com/VeyronSakai/VeUnityBuild.git?path=Assets/VeUnityBuild` > `Install`
+
 ## Usage
 
 ### Set Build Config
