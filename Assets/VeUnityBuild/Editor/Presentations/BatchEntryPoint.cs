@@ -10,7 +10,26 @@ namespace VeUnityBuild.Editor.Presentations
 {
     public static class BatchEntryPoint
     {
-        public static void BuildAndroid()
+        public static void Build()
+        {
+            var activeTarget = EditorUserBuildSettings.activeBuildTarget;
+            // ReSharper disable once SwitchStatementHandlesSomeKnownEnumValuesWithDefault
+            switch (activeTarget)
+            {
+                case BuildTarget.Android:
+                    BuildAndroid();
+                    break;
+                case BuildTarget.iOS:
+                    BuildIOS();
+                    break;
+                default:
+                    Debug.LogError($"Unsupported BuildTarget: {activeTarget}");
+                    EditorApplication.Exit(1);
+                    break;
+            }
+        }
+
+        static void BuildAndroid()
         {
             Debug.Log("Start Android Building in batch mode.");
 
@@ -23,7 +42,7 @@ namespace VeUnityBuild.Editor.Presentations
             EditorApplication.Exit(isSuccess ? 0 : 1);
         }
 
-        public static void BuildIOS()
+        static void BuildIOS()
         {
             Debug.Log("Start iOS Building in batch mode.");
 
