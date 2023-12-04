@@ -27,7 +27,6 @@
   -projectPath /path/to/Project \
   -buildTarget Android \
   -executeMethod VeUnityBuild.Editor.Presentations.BatchEntryPoint.Build \
-  -buildTarget Android
   -buildMode debug \
   -buildConfig /path/to/BuildConfig # Specify a path starting with Assets. ex: Assets/Sample/VeUnityBuildConfig/AndroidBuildConfig.asset
 ```
