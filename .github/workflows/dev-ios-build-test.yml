@@ -1,0 +1,45 @@
+name: DevIOSBuildTest
+on:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      clean:
+        type: boolean
+        default: false
+        description: "clean"
+
+env:
+  CLEAN: ${{ github.event.inputs.clean || false }}
+  OUTPUT_DIR: "iOSOutput"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: [self-hosted, macOS]
+    env:
+      CLEAN: ${{ github.event.inputs.clean || false }}
+    steps:
+      - name: Switch workspace
+        uses: DeNA/setup-job-workspace-action@v2
+      - uses: actions/checkout@v4
+        with:
+          submodules: "recursive"
+          lfs: true
+          clean: "${{ env.CLEAN }}"
+      - name: Get Unity version
+        run: |
+          echo "UNITY_VERSION=$(grep "m_EditorVersion:" < ProjectSettings/ProjectVersion.txt | cut -d" " -f2)" >> "${GITHUB_ENV}"
+      - name: Unity Build
+        run: |
+          /Applications/Unity/Hub/Editor/"${UNITY_VERSION}"/Unity.app/Contents/MacOS/Unity \
+            -quit \
+            -batchmode \
+            -nographics \
+            -projectPath "$(pwd)" \
+            -executeMethod VeUnityBuild.Editor.Presentations.BatchEntryPoint.Build \
+            -buildTarget iOS \
+            -buildMode debug \
+            -buildConfig Assets/Sample/VeUnityBuildConfig/iOSBuildConfig.asset
