@@ -1,0 +1,20 @@
+{
+    "name": "VeUnityBuild.Android",
+    "rootNamespace": "",
+    "references": [
+        "GUID:d21794640fe734626babb4ac7ef8790a",
+        "GUID:c5ecc461727906345a35491a0440694f"
+    ],
+    "includePlatforms": [
+        "Android",
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
