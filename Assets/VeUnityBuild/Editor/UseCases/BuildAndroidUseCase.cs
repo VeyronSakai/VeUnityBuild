@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿#if UNITY_ANDROID
+using System.Collections.Generic;
 using UnityEditor.Build.Pipeline;
 using UnityEditor.Build.Pipeline.Interfaces;
 using VeUnityBuild.Editor.Domains.Tasks;
@@ -15,3 +16,4 @@ namespace VeUnityBuild.Editor.UseCases
         }
     }
 }
+#endif
