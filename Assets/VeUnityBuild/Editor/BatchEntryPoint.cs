@@ -2,6 +2,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEditor.Build.Pipeline;
 using UnityEngine;
+using VeUnityBuild.Editor.Common;
 
 #if UNITY_IOS
 using VeUnityBuild.Editor.IOS;
@@ -11,7 +12,7 @@ using VeUnityBuild.Editor.IOS;
 using VeUnityBuild.Editor.Android;
 #endif
 
-namespace VeUnityBuild.Editor.Common
+namespace VeUnityBuild.Editor
 {
     public static class BatchEntryPoint
     {
