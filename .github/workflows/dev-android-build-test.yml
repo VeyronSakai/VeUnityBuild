@@ -41,7 +41,7 @@ jobs:
             -executeMethod VeUnityBuild.Editor.Presentations.BatchEntryPoint.Build \
             -buildTarget Android \
             -buildMode debug \
-            -buildConfig Assets/Settings/AndroidBuildConfig.asset
+            -buildConfig Assets/Sample/VeUnityBuildConfig/AndroidBuildConfig.asset
       - name: Get product name
         run: |
           echo "PRODUCT_NAME=$(grep 'productName:' ProjectSettings/ProjectSettings.asset | awk '{print $2}')" >> "${GITHUB_ENV}"
