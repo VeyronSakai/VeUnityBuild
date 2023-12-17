@@ -1,3 +1,4 @@
+#if UNITY_ANDROID
 using System;
 using UnityEditor;
 using UnityEditor.Build.Pipeline;
@@ -42,3 +43,4 @@ namespace VeUnityBuild.Editor.Domains.Tasks
         }
     }
 }
+#endif

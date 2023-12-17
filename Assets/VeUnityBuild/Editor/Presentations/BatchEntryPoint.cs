@@ -12,23 +12,17 @@ namespace VeUnityBuild.Editor.Presentations
     {
         public static void Build()
         {
-            var activeTarget = EditorUserBuildSettings.activeBuildTarget;
-            // ReSharper disable once SwitchStatementHandlesSomeKnownEnumValuesWithDefault
-            switch (activeTarget)
-            {
-                case BuildTarget.Android:
-                    BuildAndroid();
-                    break;
-                case BuildTarget.iOS:
-                    BuildIOS();
-                    break;
-                default:
-                    Debug.LogError($"Unsupported BuildTarget: {activeTarget}");
-                    EditorApplication.Exit(1);
-                    break;
-            }
+#if UNITY_IOS
+            BuildIOS();
+#elif UNITY_ANDROID
+            BuildAndroid();
+#else
+            Debug.LogError($"Unsupported BuildTarget: {EditorUserBuildSettings.activeBuildTarget}");
+            EditorApplication.Exit(1);
+#endif
         }
 
+#if UNITY_ANDROID
         static void BuildAndroid()
         {
             Debug.Log("Start Android Building in batch mode.");
@@ -41,7 +35,9 @@ namespace VeUnityBuild.Editor.Presentations
             Debug.Log($"Finish Android Building in batch mode. ReturnCode: {returnCode}");
             EditorApplication.Exit(isSuccess ? 0 : 1);
         }
+#endif
 
+#if UNITY_IOS
         static void BuildIOS()
         {
             Debug.Log("Start iOS Building in batch mode.");
@@ -54,5 +50,6 @@ namespace VeUnityBuild.Editor.Presentations
             Debug.Log($"Finish iOS Building in batch mode. ReturnCode: {returnCode}");
             EditorApplication.Exit(isSuccess ? 0 : 1);
         }
+#endif
     }
 }

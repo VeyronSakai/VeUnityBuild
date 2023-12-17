@@ -1,3 +1,4 @@
+#if UNITY_IOS
 using System;
 using UnityEditor;
 using UnityEditor.Build.Pipeline;
@@ -54,3 +55,4 @@ namespace VeUnityBuild.Editor.Domains.Tasks
         }
     }
 }
+#endif

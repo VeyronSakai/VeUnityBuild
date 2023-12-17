@@ -13,7 +13,8 @@ namespace VeUnityBuild.Editor.Presentations
     {
         IOSBuildConfig _buildConfig;
         string _buildMode;
-
+        
+#if UNITY_IOS
         public void CreateGUI()
         {
             // Each editor window contains a root VisualElement object
@@ -67,6 +68,7 @@ namespace VeUnityBuild.Editor.Presentations
             var wnd = GetWindow<IOSWindow>();
             wnd.titleContent = new GUIContent("iOS Build Window");
         }
+#endif
 
         [MenuItem("Window/VeUnityBuild/CreateBuildConfig/iOS")]
         public static void Create()

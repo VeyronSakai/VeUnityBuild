@@ -14,6 +14,7 @@ namespace VeUnityBuild.Editor.Presentations
         AndroidBuildConfig _buildConfig;
         string _buildMode;
 
+#if UNITY_ANDROID
         public void CreateGUI()
         {
             // Each editor window contains a root VisualElement object
@@ -70,6 +71,7 @@ namespace VeUnityBuild.Editor.Presentations
             var wnd = GetWindow<AndroidWindow>();
             wnd.titleContent = new GUIContent("Android Build Window");
         }
+#endif
 
         [MenuItem("Window/VeUnityBuild/CreateBuildConfig/Android")]
         public static void Create()
