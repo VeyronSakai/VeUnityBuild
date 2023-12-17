@@ -10,7 +10,6 @@ on:
 
 env:
   CLEAN: ${{ github.event.inputs.clean || false }}
-  OUTPUT_DIR: "AndroidOutput"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
