@@ -1,19 +1,18 @@
 {
-    "name": "VeUnityBuild",
-    "rootNamespace": "",
-    "references": [
-        "GUID:c5ecc461727906345a35491a0440694f",
-        "GUID:df8dd709b20974bff935a7bae81ae937",
-        "GUID:36514dfc8f2264cfd94e435d0a3d2cce",
-        "GUID:d21794640fe734626babb4ac7ef8790a"
-    ],
-    "includePlatforms": [],
-    "excludePlatforms": [],
-    "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
-    "autoReferenced": false,
-    "defineConstraints": [],
-    "versionDefines": [],
-    "noEngineReferences": false
+  "name": "VeUnityBuild",
+  "rootNamespace": "",
+  "references": [
+    "GUID:c5ecc461727906345a35491a0440694f"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": false,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
 }
