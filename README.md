@@ -17,11 +17,14 @@ Custom build pipeline by using scriptable build pipeline.
 ### Set Build Config
 
 1. `window` > `VeUnityBuild` > `CreateBuildConfig`
-2. Select target platform.
+2. Select the target platform.
 3. Explorer or Finder will open. Select the directory where you would like to place the configuration files.
 4. Fill in the required information in the generated config file (.asset).
 
 ### Execute Build from GUI
+
+1. Switch to the target platform from `Build Settings`.
+2. `window` > `VeUnityBuild` > `Build`
 
 ### Execute Build from CLI
 
