@@ -21,10 +21,12 @@ Custom build pipeline by using scriptable build pipeline.
 3. Explorer or Finder will open. Select the directory where you would like to place the configuration files.
 4. Fill in the required information in the generated config file (.asset).
 
-### Execute Build from GUI
+### Execute Build from UnityEditor
 
 1. Switch to the target platform from `Build Settings`.
 2. `window` > `VeUnityBuild` > `Build`
+3. Fill in the required information in the opened window.
+4. Select `Build`.
 
 ### Execute Build from CLI
 
