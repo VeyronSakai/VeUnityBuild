@@ -16,7 +16,7 @@ Custom build pipeline by using scriptable build pipeline.
 
 ### Set Build Config
 
-1. seondow` > `VeUnityBuild` > `CreateBuildConfig`
+1. `window` > `VeUnityBuild` > `CreateBuildConfig`
 2. Select target platform.
 3. Explorer or Finder will open. Select the directory where you would like to place the configuration files.
 
