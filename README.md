@@ -11,7 +11,6 @@ Custom build pipeline by using scriptable build pipeline.
 1. Open the Package Manager from `Window` > `Package Manager`
 2. "+" button > `Install package from git URL` 
 3. Input `https://github.com/VeyronSakai/VeUnityBuild.git?path=Assets/VeUnityBuild` > `Install`
-4. Fill in the required information in the generated config file (.asset).
 
 ## Usage
 
@@ -20,7 +19,7 @@ Custom build pipeline by using scriptable build pipeline.
 1. `window` > `VeUnityBuild` > `CreateBuildConfig`
 2. Select target platform.
 3. Explorer or Finder will open. Select the directory where you would like to place the configuration files.
-4. 
+4. Fill in the required information in the generated config file (.asset).
 
 ### Execute Build from GUI
 
