@@ -66,4 +66,12 @@ jobs:
           $jsonContent.version = $env:VERSION
           $jsonString = $jsonContent
           Set-Content -Path $jsonFilePath -Value $jsonString
-          git diff
+      - name: Commit package.json
+        shell: pwsh
+        run: |
+          git config user.email github-actions[bot]@users.noreply.github.com
+          git config user.name github-actions[bot]
+          git switch -C github-actions/update-package-json
+          git add $env:PACKAGE_JSON
+          git commit -m "Update package.json"
+          git push -u origin (git branch --show-current)
