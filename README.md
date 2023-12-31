@@ -1,4 +1,6 @@
 # VeUnityBuild
+[![Lint](https://github.com/VeyronSakai/VeUnityBuild/actions/workflows/lint.yml/badge.svg)](https://github.com/VeyronSakai/VeUnityBuild/actions/workflows/lint.yml) [![Test](https://github.com/VeyronSakai/VeUnityBuild/actions/workflows/test.yml/badge.svg)](https://github.com/VeyronSakai/VeUnityBuild/actions/workflows/test.yml) [![DevAndroidBuildTest](https://github.com/VeyronSakai/VeUnityBuild/actions/workflows/dev-android-build-test.yml/badge.svg)](https://github.com/VeyronSakai/VeUnityBuild/actions/workflows/dev-android-build-test.yml) [![DevIOSBuildTest](https://github.com/VeyronSakai/VeUnityBuild/actions/workflows/dev-ios-build-test.yml/badge.svg)](https://github.com/VeyronSakai/VeUnityBuild/actions/workflows/dev-ios-build-test.yml)
+
 Custom build pipeline by using scriptable build pipeline.
 
 ## Requirements
