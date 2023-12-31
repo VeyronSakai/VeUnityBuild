@@ -21,9 +21,7 @@ jobs:
       - uses: actions/cache@v3
         with:
           path: Library
-          key: ${{ runner.os }}-Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
-          restore-keys: |
-            ${{ runner.os }}-Library-
+          key: ${{ runner.os }}-Library
       - name: Run EditMode and PlayMode Test
         uses: game-ci/unity-test-runner@v4
         env:
