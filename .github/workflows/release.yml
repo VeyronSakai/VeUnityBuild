@@ -51,11 +51,11 @@ jobs:
           git add $env:PACKAGE_JSON
           git commit -m "Update package.json"
           git push -u origin (git branch --show-current)
-      - name: Create Pull Request and auto merge
+      - name: Create pull request and merge
         shell: pwsh
         run: |
-          $pr = gh pr create --title "Update package.json" --base main --head (git branch --show-current)
-          gh pr merge $pr.number --auto  
+          gh pr create --title "Update package.json" --base main --head (git branch --show-current)
+          gh pr merge (git branch --show-current) --auto
       - uses: release-drafter/release-drafter@v5
         id: release-drafter
         with:
