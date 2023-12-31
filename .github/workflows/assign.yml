@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
+      repository-projects: read
     steps:
       - name: Assign PR author
         env:
