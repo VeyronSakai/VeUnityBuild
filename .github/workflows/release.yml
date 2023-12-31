@@ -44,6 +44,7 @@ jobs:
     env:
       VERSION: ${{ needs.update_release_draft.outputs.tag_name }}
       SOURCE_BRANCH: github-actions/update-package-json/${{ github.run_number }}
+      GH_TOKEN: ${{ secrets.GH_TOKEN }}
     steps:
       - uses: actions/checkout@v4
       - name: Update package.json
@@ -71,7 +72,8 @@ jobs:
     name: release
     environment: release
     runs-on: ubuntu-latest
-    permissions: write-all
+    permissions:
+      contents: write
     if: github.event_name == 'pull_request' && github.event.pull_request.merged
     needs: update_release_draft
     env:
