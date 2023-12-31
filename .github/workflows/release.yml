@@ -61,7 +61,7 @@ jobs:
       - name: Create pull request and merge
         shell: pwsh
         run: |
-          gh pr create --title "Update package.json" --base main --head (git branch --show-current)
+          gh pr create --title "Update package.json" --body "update package.json" --base main --head (git branch --show-current)
           gh pr merge (git branch --show-current) --auto
 
   release:
