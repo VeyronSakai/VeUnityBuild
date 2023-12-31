@@ -12,9 +12,6 @@ on:
       - closed
   workflow_dispatch:
 
-permissions:
-  contents: write
-
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   PACKAGE_JSON: "Assets/VeUnityBuild/package.json"
@@ -26,6 +23,8 @@ jobs:
   update_release_draft:
     name: update release draft
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     outputs:
       tag_name: ${{ steps.release_drafter.outputs.tag_name }}
     steps:
@@ -40,7 +39,6 @@ jobs:
     if: github.event_name == 'workflow_dispatch'
     needs: update_release_draft
     permissions:
-      contents: write
       pull-requests: write
     env:
       VERSION: ${{ needs.update_release_draft.outputs.tag_name }}
@@ -65,12 +63,14 @@ jobs:
         shell: pwsh
         run: |
           gh pr create --title "Update package.json" --body "update package.json" --base main --head (git branch --show-current)
-          gh pr merge (git branch --show-current) --auto
+          gh pr merge (git branch --show-current) --auto --merge
 
   release:
     name: release
     environment: release
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
     needs: update_release_draft
     env:
