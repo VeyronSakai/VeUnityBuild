@@ -1,7 +1,7 @@
 name: Assign
 
 on:
-  pull_request:
+  pull_request_target:
     types: [opened, reopened]
 
 jobs:
@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
+      repository-projects: read
     steps:
       - name: Assign PR author
         env:
