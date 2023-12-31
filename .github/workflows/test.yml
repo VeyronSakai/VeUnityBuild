@@ -22,8 +22,6 @@ jobs:
         with:
           path: Library
           key: ${{ runner.os }}-Library
-          restore-keys: |
-            ${{ runner.os }}-Library
       - name: Run EditMode and PlayMode Test
         uses: game-ci/unity-test-runner@v4
         env:
