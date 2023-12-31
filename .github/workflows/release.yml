@@ -41,6 +41,7 @@ jobs:
     needs: update_release_draft
     permissions:
       contents: write
+      pull-requests: write
     env:
       VERSION: ${{ needs.update_release_draft.outputs.tag_name }}
     steps:
