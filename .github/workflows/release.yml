@@ -17,6 +17,7 @@ permissions:
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  PACKAGE_JSON: 'Assets\VeUnityBuild\package.json'
 
 jobs:
   update_release_draft:
@@ -64,12 +65,12 @@ jobs:
         if: steps.semver.outputs.minor != '0.0'
         run: |
           git push -f origin "refs/tags/${VERSION}:refs/tags/${{ steps.semver.outputs.minor }}"
-      - name: Update package json
+      - name: Update package.json
         shell: pwsh
         run: |
-          $jsonFilePath = "Assets\VeUnityBuild\package.json"
+          $jsonFilePath = $env:PACKAGE_JSON
           $jsonContent = Get-Content -Path $jsonFilePath | ConvertFrom-Json
-          $jsonContent.version = "0.0.4"
+          $jsonContent.version = $env:VERSION
           $jsonString = $jsonContent
           Set-Content -Path $jsonFilePath -Value $jsonString
           git diff
