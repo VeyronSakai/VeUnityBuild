@@ -1,0 +1,13 @@
+name: Assign
+
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  assign:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Assign PR author
+        run: |
+          gh pr edit "${{ github.event.pull_request.number }}" --add-assignee "${{ github.event.pull_request.user.login }}"
