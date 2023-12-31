@@ -12,6 +12,9 @@ env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   PACKAGE_JSON: "Assets/VeUnityBuild/package.json"
 
+concurrency:
+  group: ${{ github.workflow }}
+
 jobs:
   update_release_draft:
     name: update release draft
@@ -33,6 +36,26 @@ jobs:
     env:
       VERSION: ${{ needs.update_release_draft.outputs.tag_name }}
     steps:
+      - name: Update package.json
+        shell: pwsh
+        run: |
+          $jsonContent = Get-Content -Path $env:PACKAGE_JSON | ConvertFrom-Json
+          $jsonContent.version = $env:VERSION
+          $jsonContent | ConvertTo-Json | Set-Content -Path $env:PACKAGE_JSON
+      - name: Commit package.json
+        shell: pwsh
+        run: |
+          git config user.email github-actions[bot]@users.noreply.github.com
+          git config user.name github-actions[bot]
+          git switch -C github-actions/update-package-json
+          git add $env:PACKAGE_JSON
+          git commit -m "Update package.json"
+          git push -u origin (git branch --show-current)
+      - name: Create Pull Request and auto merge
+        shell: pwsh
+        run: |
+          $pr = gh pr create --title "Update package.json" --base main --head (git branch --show-current)
+          gh pr merge $pr.number --auto  
       - uses: release-drafter/release-drafter@v5
         id: release-drafter
         with:
@@ -58,18 +81,3 @@ jobs:
         if: steps.semver.outputs.minor != '0.0'
         run: |
           git push -f origin "refs/tags/${VERSION}:refs/tags/${{ steps.semver.outputs.minor }}"
-      - name: Update package.json
-        shell: pwsh
-        run: |
-          $jsonContent = Get-Content -Path $env:PACKAGE_JSON | ConvertFrom-Json
-          $jsonContent.version = $env:VERSION
-          $jsonContent | ConvertTo-Json | Set-Content -Path $env:PACKAGE_JSON
-      - name: Commit package.json
-        shell: pwsh
-        run: |
-          git config user.email github-actions[bot]@users.noreply.github.com
-          git config user.name github-actions[bot]
-          git switch -C github-actions/update-package-json
-          git add $env:PACKAGE_JSON
-          git commit -m "Update package.json"
-          git push -u origin (git branch --show-current)
