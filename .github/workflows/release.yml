@@ -3,6 +3,13 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
+    paths:
+      - Assets/VeUnityBuild/package.json
+    types:
+      - closed
   workflow_dispatch:
 
 permissions:
@@ -27,15 +34,15 @@ jobs:
         with:
           commitish: main
 
-  release:
-    name: release
-    environment: release
+  update_package_json:
+    name: update package json
     runs-on: ubuntu-latest
     if: github.event_name == 'workflow_dispatch'
     needs: update_release_draft
     env:
       VERSION: ${{ needs.update_release_draft.outputs.tag_name }}
     steps:
+      - uses: actions/checkout@v4
       - name: Update package.json
         shell: pwsh
         run: |
@@ -56,6 +63,16 @@ jobs:
         run: |
           gh pr create --title "Update package.json" --base main --head (git branch --show-current)
           gh pr merge (git branch --show-current) --auto
+
+  release:
+    name: release
+    environment: release
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
+    needs: update_release_draft
+    env:
+      VERSION: ${{ needs.update_release_draft.outputs.tag_name }}
+    steps:
       - uses: release-drafter/release-drafter@v5
         id: release-drafter
         with:
