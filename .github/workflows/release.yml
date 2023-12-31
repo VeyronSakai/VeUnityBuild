@@ -39,6 +39,8 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event_name == 'workflow_dispatch'
     needs: update_release_draft
+    permissions:
+      contents: write
     env:
       VERSION: ${{ needs.update_release_draft.outputs.tag_name }}
     steps:
