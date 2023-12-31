@@ -10,7 +10,7 @@ permissions:
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  PACKAGE_JSON: 'Assets\VeUnityBuild\package.json'
+  PACKAGE_JSON: "Assets/VeUnityBuild/package.json"
 
 jobs:
   update_release_draft:
@@ -61,11 +61,10 @@ jobs:
       - name: Update package.json
         shell: pwsh
         run: |
-          $jsonFilePath = $env:PACKAGE_JSON
-          $jsonContent = Get-Content -Path $jsonFilePath | ConvertFrom-Json
+          $jsonContent = Get-Content -Path $env:PACKAGE_JSON | ConvertFrom-Json
           $jsonContent.version = $env:VERSION
           $jsonString = $jsonContent
-          Set-Content -Path $jsonFilePath -Value $jsonString
+          Set-Content -Path $env:PACKAGE_JSON -Value $jsonString
       - name: Commit package.json
         shell: pwsh
         run: |
