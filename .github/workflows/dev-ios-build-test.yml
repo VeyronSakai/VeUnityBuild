@@ -32,6 +32,9 @@ jobs:
       - name: Get Unity version
         run: |
           echo "UNITY_VERSION=$(grep "m_EditorVersion:" < ProjectSettings/ProjectVersion.txt | cut -d" " -f2)" >> "${GITHUB_ENV}"
+      - name: Get product name
+        run: |
+          echo "PRODUCT_NAME=$(grep 'productName:' ProjectSettings/ProjectSettings.asset | awk '{print $2}')" >> "${GITHUB_ENV}"
       - name: Unity Build
         run: |
           /Applications/Unity/Hub/Editor/"${UNITY_VERSION}"/Unity.app/Contents/MacOS/Unity \
@@ -43,3 +46,17 @@ jobs:
             -buildTarget iOS \
             -buildMode debug \
             -buildConfig Assets/Sample/VeUnityBuildConfig/iOSBuildConfig.asset
+      - name: Xcode build
+        env:
+          KEYCHAIN_PASS: ${{ secrets.RUNNER_KEYCHAIN_PASS }}
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          MATCH_PASSWORD: ${{ secrets.GH_PASS }}
+          LANG: "en_US.UTF-8"
+          LANGUAGE: "en_US.UTF-8"
+          LC_ALL: "en_US.UTF-8"
+        run: |
+          security unlock-keychain -p "${KEYCHAIN_PASS}" ~/Library/Keychains/login.keychain-db
+          bundle config set --local path 'vendor/bundle'
+          bundle install
+          bundle exec fastlane ios dev_build
+        working-directory: "${{ env.OUTPUT_DIR }}/${{ env.PRODUCT_NAME }}"
