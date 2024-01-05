@@ -61,7 +61,7 @@ jobs:
             touch "${RUNNER_TOOL_CACHE}/Ruby/${RUBY_VERSION}/arm64.complete"
           fi
 
-          echo "PATH=${RUNNER_TOOL_CACHE}/Ruby/${RUBY_VERSION}/arm64/bin:${PATH}" >> $GITHUB_ENV
+          echo "PATH=${RUNNER_TOOL_CACHE}/Ruby/${RUBY_VERSION}/arm64/bin:${PATH}" >> "${GITHUB_ENV}"
       - name: Xcode build
         env:
           KEYCHAIN_PASS: ${{ secrets.RUNNER_KEYCHAIN_PASS }}
