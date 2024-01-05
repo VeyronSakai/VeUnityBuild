@@ -43,9 +43,6 @@ jobs:
             -buildTarget iOS \
             -buildMode debug \
             -buildConfig Assets/Sample/VeUnityBuildConfig/iOSBuildConfig.asset
-            - name: Copy VeDevtool content to BUILD_RESULT folder
-            run: |
-              cp -r VeDevtool/* "${OUTPUT_DIR}/${PRODUCT_NAME}/"
       - name: Get product name
         run: |
           echo "PRODUCT_NAME=$(grep 'productName:' ProjectSettings/ProjectSettings.asset | awk '{print $2}')" >> "${GITHUB_ENV}"
