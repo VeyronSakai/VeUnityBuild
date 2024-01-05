@@ -16,9 +16,9 @@ MonoBehaviour:
     outputDirPath: iOSOutput
   debugConfig:
     buildOptions: 1
-    profileId: com.foo.bar
+    profileId: 
     profileType: 1
   releaseConfig:
     buildOptions: 0
-    profileId: com.foo.bar
+    profileId: 
     profileType: 2
