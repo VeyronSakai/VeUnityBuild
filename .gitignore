@@ -87,3 +87,7 @@ mono_crash.*
 .DS_Store
 
 .utmp
+
+# Build Artifacts
+iOSOutput/
+AndroidOutput/
