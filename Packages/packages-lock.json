@@ -215,6 +215,13 @@
       },
       "url": "https://packages.unity.com"
     },
+    "com.veyron-sakai.gha-unity-build-reporter": {
+      "version": "https://github.com/VeyronSakai/GhaUnityBuildReporter.git?path=Assets/GhaUnityBuildReporter",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "bfbf52d7111fd9c48c91e6baff6daca8d4433e2f"
+    },
     "com.unity.modules.accessibility": {
       "version": "1.0.0",
       "depth": 0,
