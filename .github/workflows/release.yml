@@ -81,7 +81,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ env.VERSION }}
+          ref: main
       - name: Confirm version in package.json
         run: |
           package_version=$(jq -r '.version' "${PACKAGE_JSON}")
@@ -90,7 +90,6 @@ jobs:
             echo ":error: version in package.json (${package_version}) does not match the release draft tag (${VERSION})"
             exit 1
           fi
-
       - uses: release-drafter/release-drafter@v5
         id: release-drafter
         with:
@@ -105,6 +104,9 @@ jobs:
             core.setOutput('major', matched[3])
             core.setOutput('minor', matched[2])
             core.setOutput('patch', matched[1])
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.VERSION }}
       - name: Update major tag
         if: steps.semver.outputs.major != '0'
         run: |
