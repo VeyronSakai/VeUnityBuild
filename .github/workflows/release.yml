@@ -102,6 +102,10 @@ jobs:
           echo "major=$(echo "${VERSION}" | grep -oE '^\d+')" >> "${GITHUB_OUTPUT}"
           echo "minor=$(echo "${VERSION}" | grep -oE '^\d+\.\d+')" >> "${GITHUB_OUTPUT}"
           echo "patch=$(echo "${VERSION}" | grep -oE '^\d+\.\d+\.\d+')" >> "${GITHUB_OUTPUT}"
+
+          echo $major
+          echo $minor
+          echo $patch
       - uses: actions/checkout@v4
         with:
           ref: ${{ env.VERSION }}
