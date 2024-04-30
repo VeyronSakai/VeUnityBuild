@@ -105,9 +105,9 @@ jobs:
           echo "major=${major}" >> "${GITHUB_OUTPUT}"
           echo "minor=${minor}" >> "${GITHUB_OUTPUT}"
           echo "patch=${patch}" >> "${GITHUB_OUTPUT}"
-          echo "Major: $major"
-          echo "Minor: $minor"
-          echo "Patch: $patch"
+          echo "Major: ${major}"
+          echo "Minor: ${minor}"
+          echo "Patch: ${patch}"
       - uses: actions/checkout@v4
         with:
           ref: ${{ env.VERSION }}
