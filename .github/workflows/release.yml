@@ -50,11 +50,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Update package.json
-        shell: pwsh
         run: |
-          $jsonContent = Get-Content -Path $env:PACKAGE_JSON | ConvertFrom-Json
-          $jsonContent.version = $env:VERSION
-          $jsonContent | ConvertTo-Json | Set-Content -Path $env:PACKAGE_JSON
+          json_contentt=$(cat "${PACKAGE_JSON}")
+          updated_json=$(echo "${json_content}" | jq --arg version "${VERSION}" '.version = $version')
+          echo "${updated_json}" | jq '.' > "${PACKAGE_JSON}"
       - name: Commit package.json
         uses: EndBug/add-and-commit@v9
         id: commit-package-json
