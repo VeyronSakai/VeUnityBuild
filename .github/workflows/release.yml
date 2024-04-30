@@ -96,23 +96,23 @@ jobs:
         with:
           publish: true
           commitish: main
-      - name: Create semver outputs
-        uses: actions/github-script@v6
-        id: semver
-        with:
-          script: |
-            const matched = "${{ env.VERSION }}".match(/(((\d+)\.\d+).\d+)/)
-            core.setOutput('major', matched[3])
-            core.setOutput('minor', matched[2])
-            core.setOutput('patch', matched[1])
+      - name: Get semver
+        id: get-semver
+        run: |
+          read -r major minor patch <<< "$(echo "${VERSION}" | grep -oE '(\d+)\.(\d+)\.(\d+)' | awk -F '.' '{print $1 " " $2 " " $3}')"
+          {
+            echo "major=${major}"
+            echo "minor=${major}.${minor}"
+            echo "patch=${major}.${minor}.${patch}"
+          } >> "${GITHUB_OUTPUT}"
       - uses: actions/checkout@v4
         with:
           ref: ${{ env.VERSION }}
       - name: Update major tag
-        if: steps.semver.outputs.major != '0'
+        if: steps.get-semver.outputs.major != '0'
         run: |
-          git push -f origin "refs/tags/${VERSION}:refs/tags/${{ steps.semver.outputs.major }}"
+          git push -f origin "refs/tags/${VERSION}:refs/tags/${{ steps.get-semver.outputs.major }}"
       - name: Update minor tag
-        if: steps.semver.outputs.minor != '0.0'
+        if: steps.get-semver.outputs.minor != '0.0'
         run: |
-          git push -f origin "refs/tags/${VERSION}:refs/tags/${{ steps.semver.outputs.minor }}"
+          git push -f origin "refs/tags/${VERSION}:refs/tags/${{ steps.get-semver.outputs.minor }}"
