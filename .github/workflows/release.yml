@@ -96,12 +96,15 @@ jobs:
         with:
           publish: true
           commitish: main
-      - name: Create semver outputs
+      - name: Get semver
         id: get-semver
         run: |
-          echo "patch=$(echo $VERSION | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')" >> "${GITHUB_OUTPUT}"
-          echo "minor=$(echo $VERSION | grep -oE '^[0-9]+\.[0-9]+')" >> "${GITHUB_OUTPUT}"
-          echo "major=$(echo $VERSION | grep -oE '^[0-9]+')" >> "${GITHUB_OUTPUT}"
+          read -r major minor patch <<< "$(echo "${VERSION}" | grep -oE '^([0-9]+)\.([0-9]+)\.([0-9]+)' | awk -F '.' '{print $1 " " $2 " " $3}')"
+          {
+            echo "major=${major}"
+            echo "minor=${major}.${minor}"
+            echo "patch=${major}.${minor}.${patch}"
+          } >> "${GITHUB_OUTPUT}"
       - uses: actions/checkout@v4
         with:
           ref: ${{ env.VERSION }}
