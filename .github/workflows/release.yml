@@ -51,7 +51,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Update package.json
         run: |
-          json_contentt=$(cat "${PACKAGE_JSON}")
+          json_content=$(cat "${PACKAGE_JSON}")
           updated_json=$(echo "${json_content}" | jq --arg version "${VERSION}" '.version = $version')
           echo "${updated_json}" | jq '.' > "${PACKAGE_JSON}"
       - name: Commit package.json
