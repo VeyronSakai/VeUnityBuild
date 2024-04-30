@@ -105,6 +105,9 @@ jobs:
             echo "minor=${major}.${minor}"
             echo "patch=${major}.${minor}.${patch}"
           } >> "${GITHUB_OUTPUT}"
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.VERSION }}
       - name: Update major tag
         if: steps.get-semver.outputs.major != '0'
         run: |
