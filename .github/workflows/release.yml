@@ -87,7 +87,7 @@ jobs:
           package_version=$(jq -r '.version' "${PACKAGE_JSON}")
 
           if [[ "${package_version}" != "${VERSION}" ]]; then
-            echo ":error: version in package.json (${package_version}) does not match the release draft tag (${VERSION})"
+            echo "::error::version in package.json (${package_version}) does not match the release draft tag (${VERSION})"
             exit 1
           fi
       - uses: release-drafter/release-drafter@v5
