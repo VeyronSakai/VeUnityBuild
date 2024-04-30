@@ -99,12 +99,9 @@ jobs:
       - name: Get semver
         id: get-semver
         run: |
-          read -r major minor patch <<< "$(echo "${VERSION}" | grep -oE '(\d+)\.(\d+)\.(\d+)' | awk -F '.' '{print $1 " " $2 " " $3}')"
-          {
-            echo "major=${major}"
-            echo "minor=${major}.${minor}"
-            echo "patch=${major}.${minor}.${patch}"
-          } >> "${GITHUB_OUTPUT}"
+          echo "major=$(echo "${VERSION}" | grep -oE '^\d+')" >> "${GITHUB_OUTPUT}"
+          echo "minor=$(echo "${VERSION}" | grep -oE '^\d+\.\d+')" >> "${GITHUB_OUTPUT}"
+          echo "patch=$(echo "${VERSION}" | grep -oE '^\d+\.\d+\.\d+')" >> "${GITHUB_OUTPUT}"
       - uses: actions/checkout@v4
         with:
           ref: ${{ env.VERSION }}
