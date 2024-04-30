@@ -99,7 +99,7 @@ jobs:
       - name: Get semver
         id: get-semver
         run: |
-          read major minor patch <<< $(echo "${VERSION}" | grep -oE '(\d+)\.(\d+)\.(\d+)' | awk -F '.' '{print $1 " " $2 " " $3}')
+          read -r major minor patch <<< "$(echo "${VERSION}" | grep -oE '(\d+)\.(\d+)\.(\d+)' | awk -F '.' '{print $1 " " $2 " " $3}')"
           echo "major=${major}" >> "${GITHUB_OUTPUT}"
           echo "minor=${major}.${minor}" >> "${GITHUB_OUTPUT}"
           echo "patch=${major}.${minor}.${patch}" >> "${GITHUB_OUTPUT}"
