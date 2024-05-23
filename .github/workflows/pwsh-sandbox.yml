@@ -1,0 +1,12 @@
+name: PwshSandbox
+on:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: [self-hosted, macOS]
+    steps:
+      - name: test
+        shell: pwsh
+        run: |
+            Write-Host "test"
