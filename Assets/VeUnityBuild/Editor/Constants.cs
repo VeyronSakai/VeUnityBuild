@@ -10,10 +10,11 @@ namespace VeUnityBuild.Editor
         public const string BuildModeOptionKey = "-buildMode";
         public const string BuildConfigOptionKey = "-buildConfig";
 
-        // Unity's -androidKeystorePass / -androidKeyaliasPass are only honored by the Build
-        // Settings flow, not by BuildPipeline.BuildPlayer invoked via -executeMethod. We reuse
-        // the same option names and apply them to PlayerSettings ourselves; Unity simply ignores
-        // them for this build path, so there is no conflict.
+        // -androidKeystorePass / -androidKeyaliasPass are not part of Unity's official
+        // command-line interface; they are a de-facto naming convention used by CI tooling.
+        // VeUnityBuild defines its own options under the same conventional names and applies
+        // them via the PlayerSettings.Android API, because Unity does not process these
+        // arguments for BuildPipeline.BuildPlayer invoked via -executeMethod.
         public const string AndroidKeystorePassOptionKey = "-androidKeystorePass";
         public const string AndroidKeyaliasPassOptionKey = "-androidKeyaliasPass";
 
