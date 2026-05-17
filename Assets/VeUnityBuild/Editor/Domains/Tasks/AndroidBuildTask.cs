@@ -24,6 +24,10 @@ namespace VeUnityBuild.Editor.Domains.Tasks
                 _ => throw new ArgumentException($"Invalid build mode: {_buildParameter.BuildMode}")
             };
 
+            // The exportFormat only changes the output file extension. EditorUserBuildSettings.buildAppBundle
+            // must also be set, otherwise Unity produces an APK even when the file is named ".aab".
+            EditorUserBuildSettings.buildAppBundle = _buildConfig.exportFormat == AndroidExportFormat.Aab;
+
             try
             {
                 BuildPipeline.BuildPlayer(
