@@ -24,7 +24,12 @@ namespace VeUnityBuild.Editor.Infrastructures
             }
 
             var buildMode = getCommandLineArgsUseCase.GetValue(Constant.BuildModeOptionKey);
-            var parameterContext = new BuildParameter { BuildMode = buildMode };
+            var parameterContext = new BuildParameter
+            {
+                BuildMode = buildMode,
+                AndroidKeystorePass = getCommandLineArgsUseCase.GetValue(Constant.AndroidKeystorePassOptionKey),
+                AndroidKeyaliasPass = getCommandLineArgsUseCase.GetValue(Constant.AndroidKeyaliasPassOptionKey),
+            };
             return new IContextObject[] { buildConfig, parameterContext };
         }
     }
