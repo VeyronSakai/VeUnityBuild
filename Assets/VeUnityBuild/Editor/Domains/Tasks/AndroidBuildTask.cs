@@ -28,8 +28,8 @@ namespace VeUnityBuild.Editor.Domains.Tasks
             // must also be set, otherwise Unity produces an APK even when the file is named ".aab".
             EditorUserBuildSettings.buildAppBundle = _buildConfig.exportFormat == AndroidExportFormat.Aab;
 
-            // Unity's -androidKeystorePass / -androidKeyaliasPass are ignored when building via
-            // BuildPipeline.BuildPlayer, so apply VeUnityBuild's own options to PlayerSettings here.
+            // Unity ignores -androidKeystorePass / -androidKeyaliasPass when building via
+            // BuildPipeline.BuildPlayer, so apply the values to PlayerSettings ourselves.
             if (!string.IsNullOrEmpty(_buildParameter.AndroidKeystorePass))
             {
                 PlayerSettings.Android.keystorePass = _buildParameter.AndroidKeystorePass;
