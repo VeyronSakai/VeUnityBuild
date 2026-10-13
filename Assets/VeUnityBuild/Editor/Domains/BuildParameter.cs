@@ -7,5 +7,6 @@ namespace VeUnityBuild.Editor.Domains
         public string BuildMode { get; set; }
         public string AndroidKeystorePass { get; set; }
         public string AndroidKeyaliasPass { get; set; }
+        public string BuildNumber { get; set; }
     }
 }

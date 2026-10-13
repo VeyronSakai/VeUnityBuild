@@ -29,6 +29,7 @@ namespace VeUnityBuild.Editor.Infrastructures
                 BuildMode = buildMode,
                 AndroidKeystorePass = getCommandLineArgsUseCase.GetValue(Constant.AndroidKeystorePassOptionKey),
                 AndroidKeyaliasPass = getCommandLineArgsUseCase.GetValue(Constant.AndroidKeyaliasPassOptionKey),
+                BuildNumber = getCommandLineArgsUseCase.GetValue(Constant.BuildNumberOptionKey),
             };
             return new IContextObject[] { buildConfig, parameterContext };
         }

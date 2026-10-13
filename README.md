@@ -44,6 +44,12 @@ Custom build pipeline by using scriptable build pipeline.
   -buildConfig /path/to/BuildConfig # Specify a path starting with Assets. ex: Assets/Sample/VeUnityBuildConfig/AndroidBuildConfig.asset
 ```
 
+#### Optional arguments
+
+| Argument | Description |
+|---|---|
+| `-buildNumber <value>` | Overrides the build number for this build. iOS: `CFBundleVersion` (up to three period-separated non-negative integers, e.g. `12` or `12.1`). Android: `versionCode` (a positive integer). If omitted, the value in Player Settings is used. |
+
 ## Trouble Shooting
 
 ```

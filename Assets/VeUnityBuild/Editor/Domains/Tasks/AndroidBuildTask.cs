@@ -40,6 +40,19 @@ namespace VeUnityBuild.Editor.Domains.Tasks
                 PlayerSettings.Android.keyaliasPass = _buildParameter.AndroidKeyaliasPass;
             }
 
+            // Without -buildNumber, the versionCode in PlayerSettings is used as is.
+            if (!string.IsNullOrEmpty(_buildParameter.BuildNumber))
+            {
+                // Android accepts only a positive integer as versionCode.
+                // Fail here so that an invalid value does not surface later in Gradle or on upload.
+                if (!int.TryParse(_buildParameter.BuildNumber, out var versionCode) || versionCode <= 0)
+                {
+                    throw new ArgumentException($"Invalid build number: {_buildParameter.BuildNumber}");
+                }
+
+                PlayerSettings.Android.bundleVersionCode = versionCode;
+            }
+
             try
             {
                 BuildPipeline.BuildPlayer(
