@@ -18,6 +18,12 @@ namespace VeUnityBuild.Editor
         public const string AndroidKeystorePassOptionKey = "-androidKeystorePass";
         public const string AndroidKeyaliasPassOptionKey = "-androidKeyaliasPass";
 
+        // Overrides the build number (iOS: CFBundleVersion, Android: versionCode) for this build.
+        // CI passes a value that changes on every build, because distribution services such as
+        // Firebase App Distribution treat a binary with the same version and build number as
+        // an update of the existing release instead of a new release.
+        public const string BuildNumberOptionKey = "-buildNumber";
+
         public const int Version = 1;
     }
 }
