@@ -30,7 +30,7 @@ jobs:
     outputs:
       tag_name: ${{ steps.release_drafter.outputs.tag_name }}
     steps:
-      - uses: release-drafter/release-drafter@v5
+      - uses: release-drafter/release-drafter@693d20e7c1ce1a81d3a41962f85914253b518449 # v7.3.1
         id: release_drafter
         with:
           commitish: main
@@ -46,9 +46,8 @@ jobs:
     env:
       VERSION: ${{ needs.update_release_draft.outputs.tag_name }}
       SOURCE_BRANCH: github-actions/update-package-json/${{ github.run_number }}
-      GH_TOKEN: ${{ secrets.GH_TOKEN }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
       - name: Update package.json
         run: |
           json_content=$(cat "${PACKAGE_JSON}")
@@ -63,7 +62,16 @@ jobs:
           message: "Update package.json"
           add: ${{ env.PACKAGE_JSON }}
           new_branch: ${{ env.SOURCE_BRANCH }}
+      # A pull request created with GITHUB_TOKEN does not trigger workflows, so the release job would not run
+      # when it is merged. Create the pull request with a GitHub App token instead.
+      - uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        id: create-github-app-token
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
       - name: Create pull request and merge
+        env:
+          GH_TOKEN: ${{ steps.create-github-app-token.outputs.token }}
         run: |
           gh pr create --title "Update package.json" --body "update package.json" --base main --head "${SOURCE_BRANCH}"
           gh pr merge "${SOURCE_BRANCH}" --auto --merge
@@ -79,7 +87,7 @@ jobs:
     env:
       VERSION: ${{ needs.update_release_draft.outputs.tag_name }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
         with:
           ref: main
       - name: Validate version in package.json
@@ -90,7 +98,7 @@ jobs:
             echo "::error::version in package.json (${package_version}) does not match the release draft tag (${VERSION})"
             exit 1
           fi
-      - uses: release-drafter/release-drafter@v5
+      - uses: release-drafter/release-drafter@693d20e7c1ce1a81d3a41962f85914253b518449 # v7.3.1
         id: release-drafter
         with:
           publish: true
@@ -104,7 +112,7 @@ jobs:
             echo "minor=${major}.${minor}"
             echo "patch=${major}.${minor}.${patch}"
           } >> "${GITHUB_OUTPUT}"
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
         with:
           ref: ${{ env.VERSION }}
       - name: Update major tag
